@@ -92,7 +92,11 @@
                     <TranslateTransform/>
                 </phone:PanoramaItem.RenderTransform>
                 <Grid>
-                    <phone:LongListSelector ItemsSource="{Binding Items}" Margin="0,-38,0,36">
+                    <phone:LongListSelector 
+                        ListFooter="{Binding}"
+                        ItemRealized="LongListSelector_ItemRealized"
+                        ItemsSource="{Binding Items}" 
+                        Margin="0,-38,0,36">
                         <phone:LongListSelector.ListHeaderTemplate>
                             <DataTemplate>
                                 <Grid Margin="12,0,0,0">

@@ -11,6 +11,7 @@ using Sniptfisher.Services.Interfaces;
 using Sniptfisher.Services;
 using System.Windows.Input;
 using RestSharp;
+using System.Windows;
 
 namespace Sniptfisher.ViewModel
 {
@@ -95,6 +96,37 @@ namespace Sniptfisher.ViewModel
                 RaisePropertyChanged(IsDataLoadedPropertyName);
             }
         }
+
+        /// <summary>
+        /// The <see cref="IsLoading" /> property's name.
+        /// </summary>
+        public const string IsLoadingPropertyName = "IsLoading";
+
+        private bool _isLoading = false;
+
+        /// <summary>
+        /// Sets and gets the IsLoading property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public bool IsLoading
+        {
+            get
+            {
+                return _isLoading;
+            }
+
+            set
+            {
+                if (_isLoading == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(IsLoadingPropertyName);
+                _isLoading = value;
+                RaisePropertyChanged(IsLoadingPropertyName);
+            }
+        }
         #endregion Propiedades enlazables
 
         #region Comandos
@@ -129,16 +161,27 @@ namespace Sniptfisher.ViewModel
 
             this.ViewItemDetailCommand = new RelayCommand<SniptModel>(this.ViewItemDetail);            
         }
-
-        // Este método debería estar en un hipotético "SniptService"
+        
         async public Task LoadDataAsync()
         {
+            // Este método debería estar en un hipotético "SniptService"
             Items = await this.LocalSniptRepository.FindAll();
         }
 
         private void ViewItemDetail(SniptModel item)
         {
             this.NavigationService.NavigateTo<Interfaces.IDetailViewModel>(item);
+        }
+
+        async public Task LoadExtraItems()
+        {
+            IsLoading = true;
+            var newItems = await this.LocalSniptRepository.FindWithOffset(this.Items.Count);
+            foreach (SniptModel item in newItems)
+            {
+                this.Items.Add(item);
+            }
+            IsLoading = false;
         }
     }
 }

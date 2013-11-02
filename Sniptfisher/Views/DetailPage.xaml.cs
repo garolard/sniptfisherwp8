@@ -16,5 +16,13 @@ namespace Sniptfisher
         {
             InitializeComponent();
         }
+
+        async protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var context = this.DataContext as ViewModel.DetailViewModel;
+            if (!context.IsRelatedDataLoaded)
+                await context.LoadRelatedItems();
+            base.OnNavigatedTo(e);
+        }
     }
 }

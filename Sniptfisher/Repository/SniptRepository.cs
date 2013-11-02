@@ -98,5 +98,63 @@ namespace Sniptfisher.Repository
 
             return taskCompletionSource.Task;
         }
+
+        public Task<ObservableCollection<SniptModel>> FindByUserId(int userId)
+        {
+            IRestRequest request = new RestRequest(SNIPT_API_RESOURCE, Method.GET);
+            var taskCompletionSource = new TaskCompletionSource<ObservableCollection<SniptModel>>();
+
+            request.AddParameter("user", userId);
+
+            restClient.ExecuteAsync<PublicResponse>(request, (response) =>
+                {
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        ObservableCollection<SniptModel> items = new ObservableCollection<SniptModel>();
+                        foreach (SniptModel item in response.Data.objects)
+                        {
+                            items.Add(item);
+                        }
+                        taskCompletionSource.TrySetResult(items);
+                    }
+                    else if (response.StatusCode == System.Net.HttpStatusCode.NotFound ||
+                             response.StatusCode == System.Net.HttpStatusCode.BadRequest ||
+                             response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                    {
+                        taskCompletionSource.SetException(new Exception("Fallo realizando la consulta a la API"));
+                    }
+                });
+
+            return taskCompletionSource.Task;
+        }
+
+        public Task<ObservableCollection<SniptModel>> FindWithOffset(int offset)
+        {
+            IRestRequest request = new RestRequest(SNIPT_API_RESOURCE, Method.GET);
+            var taskCompletionSource = new TaskCompletionSource<ObservableCollection<SniptModel>>();
+
+            request.AddParameter("offset", offset);
+
+            restClient.ExecuteAsync<PublicResponse>(request, (response) =>
+            {
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    ObservableCollection<SniptModel> items = new ObservableCollection<SniptModel>();
+                    foreach (SniptModel item in response.Data.objects)
+                    {
+                        items.Add(item);
+                    }
+                    taskCompletionSource.TrySetResult(items);
+                }
+                else if (response.StatusCode == System.Net.HttpStatusCode.NotFound ||
+                         response.StatusCode == System.Net.HttpStatusCode.BadRequest ||
+                         response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                {
+                    taskCompletionSource.SetException(new Exception("Fallo realizando la consulta a la API"));
+                }
+            });
+
+            return taskCompletionSource.Task;
+        }
     }
 }

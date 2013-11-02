@@ -10,8 +10,8 @@ namespace Sniptfisher.Services
     {
         private static Dictionary<Type, string> viewModelRouting = new Dictionary<Type, string>()
         {
-            { typeof(IMainViewModel), "/MainPage.xaml" },
-            { typeof(IDetailViewModel), "/DetailPage.xaml" }
+            { typeof(IMainViewModel), "/Views/MainPage.xaml" },
+            { typeof(IDetailViewModel), "/Views/DetailPage.xaml" }
         };
 
         private object _navigationContext;
