@@ -14,7 +14,7 @@ namespace Sniptfisher
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        private const int itemsAfterNextLoad = 7;
+        private readonly ViewModel.MainViewModel context;
 
         // Constructor
         public MainPage()
@@ -24,12 +24,12 @@ namespace Sniptfisher
             // Sample code to localize the ApplicationBar
             //BuildLocalizedApplicationBar();
 
+            context = this.DataContext as ViewModel.MainViewModel;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
         }
 
         void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
-            var context = this.DataContext as ViewModel.MainViewModel;
             var progressIndicator = SystemTray.ProgressIndicator;
             if (progressIndicator != null)
             {
@@ -40,11 +40,11 @@ namespace Sniptfisher
 
             SystemTray.SetProgressIndicator(this, progressIndicator);
 
-            Binding binding = new Binding("IsLoading") { Source = context };
+            Binding binding = new Binding("IsLoading") { Source = this.context };
             BindingOperations.SetBinding(
                 progressIndicator, ProgressIndicator.IsVisibleProperty, binding);
 
-            binding = new Binding("IsLoading") { Source = context };
+            binding = new Binding("IsLoading") { Source = this.context };
             BindingOperations.SetBinding(
                 progressIndicator, ProgressIndicator.IsIndeterminateProperty, binding);
 
@@ -53,25 +53,9 @@ namespace Sniptfisher
 
         async protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var context = this.DataContext as ViewModel.MainViewModel;
-            if (!context.IsDataLoaded)
-                await context.LoadDataAsync();
+            if (!this.context.IsDataLoaded)
+                await this.context.LoadDataAsync();
             base.OnNavigatedTo(e);
-        }
-
-        async private void LongListSelector_ItemRealized(object sender, ItemRealizationEventArgs e)
-        {
-            var context = this.DataContext as ViewModel.MainViewModel;
-            if (!context.IsLoading && context.Items != null && context.Items.Count >= itemsAfterNextLoad)
-            {
-                if (e.ItemKind == LongListSelectorItemKind.Item)
-                {
-                    if ((e.Container.Content as Sniptfisher.Model.Public.SniptModel).Equals(context.Items[context.Items.Count - itemsAfterNextLoad]))
-                    {
-                        await context.LoadExtraItems();
-                    }
-                }
-            }
         }
 
         // Sample code for building a localized ApplicationBar

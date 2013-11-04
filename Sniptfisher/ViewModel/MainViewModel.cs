@@ -131,6 +131,7 @@ namespace Sniptfisher.ViewModel
 
         #region Comandos
         public ICommand ViewItemDetailCommand { get; private set; }
+        public ICommand LoadMoreItemsCommand { get; private set; }
         #endregion Comandos
 
         #region Servicios
@@ -159,7 +160,8 @@ namespace Sniptfisher.ViewModel
             this.LocalSniptRepository = sniptRepository;
             this.NavigationService = navigationService;
 
-            this.ViewItemDetailCommand = new RelayCommand<SniptModel>(this.ViewItemDetail);            
+            this.ViewItemDetailCommand = new RelayCommand<SniptModel>(this.ViewItemDetail);
+            this.LoadMoreItemsCommand = new RelayCommand(this.LoadExtraItems);
         }
         
         async public Task LoadDataAsync()
@@ -173,7 +175,7 @@ namespace Sniptfisher.ViewModel
             this.NavigationService.NavigateTo<Interfaces.IDetailViewModel>(item);
         }
 
-        async public Task LoadExtraItems()
+        async public void LoadExtraItems()
         {
             IsLoading = true;
             var newItems = await this.LocalSniptRepository.FindWithOffset(this.Items.Count);
