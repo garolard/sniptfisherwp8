@@ -47,6 +47,12 @@ namespace Sniptfisher.Repository
 
             restClient.ExecuteAsync<SniptModel>(request, (response) =>
                 { 
+                    // Nota sobre errores de red: Si hay un error de red en la
+                    // transferencia (no hay conexión, falló una DNS, etc) se reflejará
+                    // en la propiedad response.Status como ResponseStatus.Error, en cambio
+                    // si la consulta se finaliza, dicha propiedad valdrá ResponseStatus.Complete.
+                    // La propiedad valdrá Complete siempre que se complete la petición,
+                    // independientemente del código de respuesta del servidor (404, 500, 200, etc)
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         var item = response.Data;
