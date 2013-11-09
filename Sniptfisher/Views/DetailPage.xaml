@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:abu="clr-namespace:AppBarUtils;assembly=AppBarUtils"
+    xmlns:controls="clr-namespace:Phone.Controls;assembly=Phone.Controls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -23,12 +24,10 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <phone:Pivot Grid.Row="1" Title="{Binding Path=user.username}">
+        <phone:Pivot Grid.Row="1" Title="{Binding Path=user.username}" x:Name="DetailPivot">
             <phone:PivotItem CacheMode="{x:Null}" Header="{Binding title}">
                 <Grid>
-                    <ScrollViewer>
-                        <TextBlock Text="{Binding code}" Style="{StaticResource PhoneTextBlockBase}" Margin="0" Width="432" Height="Auto" TextWrapping="Wrap" />
-                    </ScrollViewer>
+                    <controls:ScrollableTextBlock Text="{Binding code}" Width="Auto" Height="Auto" />
                 </Grid>
             </phone:PivotItem>
             <phone:PivotItem CacheMode="{x:Null}" Header="{Binding Path=user.username}">
