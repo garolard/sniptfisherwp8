@@ -187,5 +187,45 @@ namespace Sniptfisher.Repository
 
             return taskCompletionSource.Task;
         }
+
+        public Task<ObservableCollection<SniptModel>> FindWithQuery(string query)
+        {
+            IRestRequest request = new RestRequest(SNIPT_API_RESOURCE, Method.GET);
+            var taskCompletionSource = new TaskCompletionSource<ObservableCollection<SniptModel>>();
+
+            request.AddParameter("q", query);
+
+            restClient.ExecuteAsync<PublicResponse>(request, (response) =>
+                {
+                    // Si hay algún error intentando realizar la peticion HTTP lanzo excepción
+                    if (response.ResponseStatus == ResponseStatus.Error)
+                    {
+                        taskCompletionSource.TrySetException(new ApiRequestException("Error de conexión realizando petición a la API en el método FindWithQuery()"));
+                    }
+
+                    // Si todo ha ido bien agrego un resultado a la tarea para finalizarla,
+                    // si la consulta se realizó pero la respuesta no es la adecuada, lanzo excepción.
+                    if (response.ResponseStatus == ResponseStatus.Completed &&
+                        response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        ObservableCollection<SniptModel> items = new ObservableCollection<SniptModel>();
+                        foreach (SniptModel item in response.Data.objects)
+                        {
+                            items.Add(item);
+                        }
+                        taskCompletionSource.TrySetResult(items); // Termina la tarea y notifica su finalización
+                    }
+                    else if (response.ResponseStatus == ResponseStatus.Completed &&
+                            (response.StatusCode == System.Net.HttpStatusCode.NotFound ||
+                             response.StatusCode == System.Net.HttpStatusCode.BadRequest ||
+                             response.StatusCode == System.Net.HttpStatusCode.InternalServerError))
+                    {
+                        taskCompletionSource.TrySetException(
+                            new ApiRequestException("Error realizando petición a la API en el método FindWithQuery(): " + response.StatusCode + " " + response.StatusDescription));
+                    }
+                });
+
+            return taskCompletionSource.Task;
+        }
     }
 }

@@ -59,6 +59,7 @@ namespace Sniptfisher.ViewModel
             /* ViewModels */
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<DetailViewModel>();
+            SimpleIoc.Default.Register<SearchViewModel>();
         }
 
         public MainViewModel Main
@@ -74,6 +75,14 @@ namespace Sniptfisher.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<DetailViewModel>();
+            }
+        }
+
+        public SearchViewModel Search
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SearchViewModel>();
             }
         }
         

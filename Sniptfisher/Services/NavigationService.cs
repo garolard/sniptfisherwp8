@@ -11,7 +11,8 @@ namespace Sniptfisher.Services
         private static Dictionary<Type, string> viewModelRouting = new Dictionary<Type, string>()
         {
             { typeof(IMainViewModel), "/Views/MainPage.xaml" },
-            { typeof(IDetailViewModel), "/Views/DetailPage.xaml" }
+            { typeof(IDetailViewModel), "/Views/DetailPage.xaml" },
+            { typeof(ISearchViewModel), "/Views/SearchPage.xaml" }
         };
 
         private object _navigationContext;
@@ -19,7 +20,7 @@ namespace Sniptfisher.Services
         public void NavigateTo<TDestinationViewModel>()
         {
             PhoneApplicationFrame rootFrame = Application.Current.RootVisual as PhoneApplicationFrame;
-            rootFrame.Navigate(new Uri(viewModelRouting[typeof(TDestinationViewModel)]));
+            rootFrame.Navigate(new Uri(viewModelRouting[typeof(TDestinationViewModel)], UriKind.Relative));
         }
 
         public void NavigateTo<TDestinationViewModel>(object navigationContext)

@@ -132,6 +132,7 @@ namespace Sniptfisher.ViewModel
         #region Comandos
         public ICommand ViewItemDetailCommand { get; private set; }
         public ICommand LoadMoreItemsCommand { get; private set; }
+        public ICommand SearchCommand { get; private set; }
         #endregion Comandos
 
         #region Servicios
@@ -165,11 +166,13 @@ namespace Sniptfisher.ViewModel
 
             this.ViewItemDetailCommand = new RelayCommand<SniptModel>(this.ViewItemDetail);
             this.LoadMoreItemsCommand = new RelayCommand(this.LoadExtraItems);
+            this.SearchCommand = new RelayCommand(this.SearchSnipts);
         }
         
         async public Task LoadDataAsync()
         {
             // Este método debería estar en un hipotético "SniptService"
+            IsLoading = true;
             try
             {
                 Items = await this.LocalSniptRepository.FindAll();
@@ -178,7 +181,9 @@ namespace Sniptfisher.ViewModel
             {
                 System.Diagnostics.Debug.WriteLine(are.Message);
                 this.DialogService.Show("Tenemos problemas para conectarnos con Snipt.net. Por favor, revisa tu conexión a internet.");
+                IsLoading = true;
             }
+            IsLoading = true;
         }
 
         private void ViewItemDetail(SniptModel item)
@@ -201,8 +206,14 @@ namespace Sniptfisher.ViewModel
             {
                 System.Diagnostics.Debug.WriteLine(are.Message);
                 this.DialogService.Show("Tenemos problemas para conectarnos con Snipt.net. Por favor, revisa tu conexión a internet.");
+                IsLoading = false;
             }
             IsLoading = false;
+        }
+
+        private void SearchSnipts()
+        {
+            this.NavigationService.NavigateTo<Interfaces.ISearchViewModel>();
         }
     }
 }

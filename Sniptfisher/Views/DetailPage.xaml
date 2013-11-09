@@ -27,7 +27,7 @@
         <phone:Pivot Grid.Row="1" Title="{Binding Path=user.username}" x:Name="DetailPivot">
             <phone:PivotItem CacheMode="{x:Null}" Header="{Binding title}">
                 <Grid>
-                    <controls:ScrollableTextBlock Text="{Binding code}" Width="Auto" Height="Auto" />
+                    <controls:ScrollableTextBlock Text="{Binding code}" Width="Auto" Height="Auto" Margin="0,0,0,12" />
                 </Grid>
             </phone:PivotItem>
             <phone:PivotItem CacheMode="{x:Null}" Header="{Binding Path=user.username}">

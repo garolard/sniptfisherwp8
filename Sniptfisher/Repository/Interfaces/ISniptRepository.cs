@@ -12,5 +12,6 @@ namespace Sniptfisher.Repository.Interfaces
         // TODO: Agregar métodos específicos para los Snipts
         Task<ObservableCollection<SniptModel>> FindByUserId(int usrId);
         Task<ObservableCollection<SniptModel>> FindWithOffset(int offset);
+        Task<ObservableCollection<SniptModel>> FindWithQuery(string query);
     }
 }

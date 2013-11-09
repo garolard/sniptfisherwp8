@@ -4,7 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
     xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone" 
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone" 
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     mc:Ignorable="d"
     xmlns:vm="clr-namespace:Sniptfisher.ViewModel"
@@ -15,6 +16,9 @@
         <local:LocalizedStrings x:Key="LocalizedStrings" />
         <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
         <converter:LocalizedResourcesConverter x:Key="LocalizedResourcesConverter" />
+      
+        <!-- Plantillas de datos globales -->
+        <!-- No se donde se usa esta -->
         <DataTemplate x:Key="SelectorItemTemplate">
             <Grid Margin="10, 40, 10, 0">
                 <TextBlock 
@@ -24,7 +28,7 @@
                     />
             </Grid>
         </DataTemplate>
-  </Application.Resources>
+    </Application.Resources>
   <Application.ApplicationLifetimeObjects>
     <!--Required object that handles lifetime events for the application-->
     <shell:PhoneApplicationService Launching="Application_Launching" Closing="Application_Closing" Activated="Application_Activated" Deactivated="Application_Deactivated" />
