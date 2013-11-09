@@ -54,6 +54,7 @@ namespace Sniptfisher.ViewModel
             /* Servicios */
             SimpleIoc.Default.Register<INavigationService, NavigationService>();
             SimpleIoc.Default.Register<IShareService, ShareService>();
+            SimpleIoc.Default.Register<IDialogService, DialogService>();
 
             /* ViewModels */
             SimpleIoc.Default.Register<MainViewModel>();

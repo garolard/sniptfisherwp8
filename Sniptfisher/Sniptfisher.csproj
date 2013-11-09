@@ -97,6 +97,7 @@
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
     <Compile Include="Converters\LocalizedResourcesConverter.cs" />
     <Compile Include="Design\DesignDataService.cs" />
+    <Compile Include="Exceptions\ApiRequestException.cs" />
     <Compile Include="Views\DetailPage.xaml.cs">
       <DependentUpon>DetailPage.xaml</DependentUpon>
     </Compile>

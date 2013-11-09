@@ -128,14 +128,18 @@ namespace Sniptfisher.ViewModel
         #region Servicios
         private readonly ISniptRepository LocalSniptRepository;
         private readonly IShareService ShareService;
+        private readonly IDialogService DialogService;
         #endregion Servicios
 
         public DetailViewModel(
             ISniptRepository sniptRepository,
-            IShareService shareService)
+            IShareService shareService,
+            IDialogService dialogService)
         {
             this.LocalSniptRepository = sniptRepository;
             this.ShareService = shareService;
+            this.DialogService = dialogService;
+
             this.ShareCommand = new RelayCommand(this.ShareItem);
             this.ChangeActiveItemCommand = new RelayCommand<SniptModel>(this.ChangeActiveItem);
         }
@@ -153,7 +157,15 @@ namespace Sniptfisher.ViewModel
 
         async public Task LoadRelatedItems()
         {
-            this.RelatedItems = await this.LocalSniptRepository.FindByUserId(ActiveItem.user.id);
+            try
+            {
+                this.RelatedItems = await this.LocalSniptRepository.FindByUserId(ActiveItem.user.id);
+            }
+            catch (Exceptions.ApiRequestException are)
+            {
+                System.Diagnostics.Debug.WriteLine(are.Message);
+                this.DialogService.Show("Tenemos problemas para conectarnos con Snipt.net. Por favor, revisa tu conexión a internet.");
+            }
         }
     }
 }

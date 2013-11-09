@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Sniptfisher.Model.Public;
 using RestSharp;
+using Sniptfisher.Exceptions;
 
 namespace Sniptfisher.Repository
 {
@@ -46,23 +47,25 @@ namespace Sniptfisher.Repository
             request.AddUrlSegment("sniptId", objKey.ToString());
 
             restClient.ExecuteAsync<SniptModel>(request, (response) =>
-                { 
-                    // Nota sobre errores de red: Si hay un error de red en la
-                    // transferencia (no hay conexión, falló una DNS, etc) se reflejará
-                    // en la propiedad response.Status como ResponseStatus.Error, en cambio
-                    // si la consulta se finaliza, dicha propiedad valdrá ResponseStatus.Complete.
-                    // La propiedad valdrá Complete siempre que se complete la petición,
-                    // independientemente del código de respuesta del servidor (404, 500, 200, etc)
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    if (response.ResponseStatus == ResponseStatus.Error)
+                    {
+                        taskCompletionSource.TrySetException(new ApiRequestException("Error de conexión realizando petición a la API en el método Find()"));
+                    }
+
+                    if (response.ResponseStatus == ResponseStatus.Completed &&
+                        response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         var item = response.Data;
                         taskCompletionSource.TrySetResult(item);
                     }
-                    else if (response.StatusCode == System.Net.HttpStatusCode.NotFound ||
+                    else if (response.ResponseStatus == ResponseStatus.Completed &&
+                            (response.StatusCode == System.Net.HttpStatusCode.NotFound ||
                              response.StatusCode == System.Net.HttpStatusCode.BadRequest ||
-                             response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                             response.StatusCode == System.Net.HttpStatusCode.InternalServerError))
                     {
-                        taskCompletionSource.TrySetException(new Exception("Fallo realizando la consulta a la API"));
+                        taskCompletionSource.TrySetException(
+                            new ApiRequestException("Error realizando petición a la API en el método Find(): " + response.StatusCode + " " + response.StatusDescription));
                     }
                 });
 
@@ -84,8 +87,16 @@ namespace Sniptfisher.Repository
             // Ejecuto la petición y le asigno una lambda que terminará la tarea
             restClient.ExecuteAsync<PublicResponse>(request, (response) =>
                 {
-                    // Si todo ha ido bien agrego un resultado a la tarea para finalizarla
-                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    // Si hay algún error intentando realizar la peticion HTTP lanzo excepción
+                    if (response.ResponseStatus == ResponseStatus.Error)
+                    {
+                        taskCompletionSource.TrySetException(new ApiRequestException("Error de conexión realizando petición a la API en el método Find()"));
+                    }
+
+                    // Si todo ha ido bien agrego un resultado a la tarea para finalizarla,
+                    // si la consulta se realizó pero la respuesta no es la adecuada, lanzo excepción.
+                    if (response.ResponseStatus == ResponseStatus.Completed &&
+                        response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         ObservableCollection<SniptModel> items = new ObservableCollection<SniptModel>();
                         foreach (SniptModel item in response.Data.objects)
@@ -94,11 +105,13 @@ namespace Sniptfisher.Repository
                         }
                         taskCompletionSource.TrySetResult(items); // Termina la tarea y notifica su finalización
                     }
-                    else if (response.StatusCode == System.Net.HttpStatusCode.NotFound ||
+                    else if (response.ResponseStatus == ResponseStatus.Completed &&
+                            (response.StatusCode == System.Net.HttpStatusCode.NotFound ||
                              response.StatusCode == System.Net.HttpStatusCode.BadRequest ||
-                             response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
+                             response.StatusCode == System.Net.HttpStatusCode.InternalServerError))
                     {
-                        taskCompletionSource.SetException(new Exception("Fallo realizando la consulta a la API"));
+                        taskCompletionSource.TrySetException(
+                            new ApiRequestException("Error realizando petición a la API en el método Find(): " + response.StatusCode + " " + response.StatusDescription));
                     }
                 });
 
@@ -114,6 +127,11 @@ namespace Sniptfisher.Repository
 
             restClient.ExecuteAsync<PublicResponse>(request, (response) =>
                 {
+                    if (response.ResponseStatus == ResponseStatus.Error)
+                    {
+                        taskCompletionSource.TrySetException(new ApiRequestException("Error de conexión realizando petición a la API en el método Find()"));
+                    }
+
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         ObservableCollection<SniptModel> items = new ObservableCollection<SniptModel>();
@@ -127,7 +145,8 @@ namespace Sniptfisher.Repository
                              response.StatusCode == System.Net.HttpStatusCode.BadRequest ||
                              response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
                     {
-                        taskCompletionSource.SetException(new Exception("Fallo realizando la consulta a la API"));
+                        taskCompletionSource.TrySetException(
+                            new ApiRequestException("Error realizando petición a la API en el método Find(): " + response.StatusCode + " " + response.StatusDescription));
                     }
                 });
 
@@ -143,6 +162,11 @@ namespace Sniptfisher.Repository
 
             restClient.ExecuteAsync<PublicResponse>(request, (response) =>
             {
+                if (response.ResponseStatus == ResponseStatus.Error)
+                {
+                    taskCompletionSource.TrySetException(new ApiRequestException("Error de conexión realizando petición a la API en el método Find()"));
+                }
+
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
                     ObservableCollection<SniptModel> items = new ObservableCollection<SniptModel>();
@@ -156,7 +180,8 @@ namespace Sniptfisher.Repository
                          response.StatusCode == System.Net.HttpStatusCode.BadRequest ||
                          response.StatusCode == System.Net.HttpStatusCode.InternalServerError)
                 {
-                    taskCompletionSource.SetException(new Exception("Fallo realizando la consulta a la API"));
+                    taskCompletionSource.TrySetException(
+                        new ApiRequestException("Error realizando petición a la API en el método Find(): " + response.StatusCode + " " + response.StatusDescription));
                 }
             });
 

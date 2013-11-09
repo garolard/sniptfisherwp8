@@ -137,6 +137,7 @@ namespace Sniptfisher.ViewModel
         #region Servicios
         private readonly ISniptRepository LocalSniptRepository;
         private readonly INavigationService NavigationService;
+        private readonly IDialogService DialogService;
         #endregion Servicios
 
 
@@ -147,7 +148,8 @@ namespace Sniptfisher.ViewModel
         /// </summary>
         public MainViewModel(
             ISniptRepository sniptRepository,
-            INavigationService navigationService)
+            INavigationService navigationService,
+            IDialogService dialogService)
         {
             ////if (IsInDesignMode)
             ////{
@@ -159,6 +161,7 @@ namespace Sniptfisher.ViewModel
             ////}
             this.LocalSniptRepository = sniptRepository;
             this.NavigationService = navigationService;
+            this.DialogService = dialogService;
 
             this.ViewItemDetailCommand = new RelayCommand<SniptModel>(this.ViewItemDetail);
             this.LoadMoreItemsCommand = new RelayCommand(this.LoadExtraItems);
@@ -167,7 +170,15 @@ namespace Sniptfisher.ViewModel
         async public Task LoadDataAsync()
         {
             // Este método debería estar en un hipotético "SniptService"
-            Items = await this.LocalSniptRepository.FindAll();
+            try
+            {
+                Items = await this.LocalSniptRepository.FindAll();
+            }
+            catch (Exceptions.ApiRequestException are)
+            {
+                System.Diagnostics.Debug.WriteLine(are.Message);
+                this.DialogService.Show("Tenemos problemas para conectarnos con Snipt.net. Por favor, revisa tu conexión a internet.");
+            }
         }
 
         private void ViewItemDetail(SniptModel item)
@@ -178,10 +189,18 @@ namespace Sniptfisher.ViewModel
         async public void LoadExtraItems()
         {
             IsLoading = true;
-            var newItems = await this.LocalSniptRepository.FindWithOffset(this.Items.Count);
-            foreach (SniptModel item in newItems)
+            try
             {
-                this.Items.Add(item);
+                var newItems = await this.LocalSniptRepository.FindWithOffset(this.Items.Count);
+                foreach (SniptModel item in newItems)
+                {
+                    this.Items.Add(item);
+                }
+            }
+            catch (Exceptions.ApiRequestException are)
+            {
+                System.Diagnostics.Debug.WriteLine(are.Message);
+                this.DialogService.Show("Tenemos problemas para conectarnos con Snipt.net. Por favor, revisa tu conexión a internet.");
             }
             IsLoading = false;
         }
