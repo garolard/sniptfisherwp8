@@ -159,17 +159,27 @@
     </Grid>
 
     <phone:PhoneApplicationPage.ApplicationBar>
-        <shell:ApplicationBar Mode="Minimized" Opacity=".5">
+        <shell:ApplicationBar Mode="Minimized" Opacity=".75">
             <shell:ApplicationBarIconButton
                     Text="search"
                     IconUri="/Assets/Icons/feature.search.png" />
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem
+                    Text="settings" />
+            </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
     <i:Interaction.Behaviors>
         <abu:AppBarItemCommand
+            Type="Button"
             Id="search"
             Command="{Binding SearchCommand}"
             Text="search" />
+        <abu:AppBarItemCommand
+            Type="MenuItem"
+            Id="settings"
+            Command="{Binding OpenSettingsCommand}"
+            Text="settings" />
     </i:Interaction.Behaviors>
 
 </phone:PhoneApplicationPage>

@@ -12,7 +12,8 @@ namespace Sniptfisher.Services
         {
             { typeof(IMainViewModel), "/Views/MainPage.xaml" },
             { typeof(IDetailViewModel), "/Views/DetailPage.xaml" },
-            { typeof(ISearchViewModel), "/Views/SearchPage.xaml" }
+            { typeof(ISearchViewModel), "/Views/SearchPage.xaml" },
+            { typeof(ISettingsViewModel), "/Views/SettingsPage.xaml" }
         };
 
         private object _navigationContext;

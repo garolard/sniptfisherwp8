@@ -55,11 +55,13 @@ namespace Sniptfisher.ViewModel
             SimpleIoc.Default.Register<INavigationService, NavigationService>();
             SimpleIoc.Default.Register<IShareService, ShareService>();
             SimpleIoc.Default.Register<IDialogService, DialogService>();
+            SimpleIoc.Default.Register<ISettingsService, SettingsService>();
 
             /* ViewModels */
             SimpleIoc.Default.Register<MainViewModel>();
             SimpleIoc.Default.Register<DetailViewModel>();
             SimpleIoc.Default.Register<SearchViewModel>();
+            SimpleIoc.Default.Register<SettingsViewModel>();
         }
 
         public MainViewModel Main
@@ -83,6 +85,14 @@ namespace Sniptfisher.ViewModel
             get
             {
                 return ServiceLocator.Current.GetInstance<SearchViewModel>();
+            }
+        }
+
+        public SettingsViewModel Settings
+        {
+            get
+            {
+                return ServiceLocator.Current.GetInstance<SettingsViewModel>();
             }
         }
         

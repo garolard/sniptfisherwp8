@@ -8,16 +8,41 @@ using System.Windows.Navigation;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using Microsoft.Devices;
+using System.Windows.Data;
 
 namespace Sniptfisher.Views
 {
     public partial class SearchPage : PhoneApplicationPage
     {
         private string _searchTerm;
+        private ViewModel.SearchViewModel context;
 
         public SearchPage()
         {
             InitializeComponent();
+            this.context = this.DataContext as ViewModel.SearchViewModel;
+            Loaded += new RoutedEventHandler(this.OnLoaded);
+        }
+
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            var progressIndicator = SystemTray.ProgressIndicator;
+            if (progressIndicator != null)
+                return;
+
+            progressIndicator = new ProgressIndicator();
+
+            SystemTray.SetProgressIndicator(this, progressIndicator);
+
+            Binding binding = new Binding("IsLoading") { Source = this.context };
+            BindingOperations.SetBinding(
+                progressIndicator, ProgressIndicator.IsVisibleProperty, binding);
+
+            binding = new Binding("IsLoading") { Source = this.context };
+            BindingOperations.SetBinding(
+                progressIndicator, ProgressIndicator.IsIndeterminateProperty, binding);
+
+            progressIndicator.Text = "Searching snipts...";
         }
 
         private void SearchTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
@@ -34,7 +59,7 @@ namespace Sniptfisher.Views
 
                 this.Focus();
 
-                (this.DataContext as ViewModel.SearchViewModel).DoSearchCommand.Execute(_searchTerm);
+                this.context.DoSearchCommand.Execute(_searchTerm);
             }
         }
 

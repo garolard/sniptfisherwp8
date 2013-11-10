@@ -18,7 +18,7 @@
         <converter:LocalizedResourcesConverter x:Key="LocalizedResourcesConverter" />
       
         <!-- Plantillas de datos globales -->
-        <!-- No se donde se usa esta -->
+        <!-- Plantilla para elementos de lista de la opcion Compartir -->
         <DataTemplate x:Key="SelectorItemTemplate">
             <Grid Margin="10, 40, 10, 0">
                 <TextBlock 

@@ -133,6 +133,7 @@ namespace Sniptfisher.ViewModel
         public ICommand ViewItemDetailCommand { get; private set; }
         public ICommand LoadMoreItemsCommand { get; private set; }
         public ICommand SearchCommand { get; private set; }
+        public ICommand OpenSettingsCommand { get; private set; }
         #endregion Comandos
 
         #region Servicios
@@ -167,6 +168,7 @@ namespace Sniptfisher.ViewModel
             this.ViewItemDetailCommand = new RelayCommand<SniptModel>(this.ViewItemDetail);
             this.LoadMoreItemsCommand = new RelayCommand(this.LoadExtraItems);
             this.SearchCommand = new RelayCommand(this.SearchSnipts);
+            this.OpenSettingsCommand = new RelayCommand(this.OpenSettings);
         }
         
         async public Task LoadDataAsync()
@@ -214,6 +216,11 @@ namespace Sniptfisher.ViewModel
         private void SearchSnipts()
         {
             this.NavigationService.NavigateTo<Interfaces.ISearchViewModel>();
+        }
+
+        private void OpenSettings()
+        {
+            this.NavigationService.NavigateTo<Interfaces.ISettingsViewModel>();
         }
     }
 }
