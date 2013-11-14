@@ -13,5 +13,6 @@ namespace Sniptfisher.Repository.Interfaces
         Task<ObservableCollection<SniptModel>> FindByUserId(int usrId);
         Task<ObservableCollection<SniptModel>> FindWithOffset(int offset);
         Task<ObservableCollection<SniptModel>> FindWithQuery(string query);
+        Task<ObservableCollection<SniptModel>> FindWithOffsetAndQuery(int offset, string query);
     }
 }
