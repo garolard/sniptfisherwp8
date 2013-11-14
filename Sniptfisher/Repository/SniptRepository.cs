@@ -227,5 +227,10 @@ namespace Sniptfisher.Repository
 
             return taskCompletionSource.Task;
         }
+        
+        public Task<ObservableCollection<SniptModel>> FindWithOffsetAndQuery(int offset, string query)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
