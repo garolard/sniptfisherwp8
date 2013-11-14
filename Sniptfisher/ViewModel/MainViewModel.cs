@@ -173,7 +173,7 @@ namespace Sniptfisher.ViewModel
         
         async public Task LoadDataAsync()
         {
-            // Este método debería estar en un hipotético "SniptService"
+            // Este mï¿½todo deberï¿½a estar en un hipotï¿½tico "SniptService"
             IsLoading = true;
             try
             {
@@ -182,10 +182,10 @@ namespace Sniptfisher.ViewModel
             catch (Exceptions.ApiRequestException are)
             {
                 System.Diagnostics.Debug.WriteLine(are.Message);
-                this.DialogService.Show("Tenemos problemas para conectarnos con Snipt.net. Por favor, revisa tu conexión a internet.");
-                IsLoading = true;
+                this.DialogService.Show("Tenemos problemas para conectarnos con Snipt.net. Por favor, revisa tu conexiï¿½n a internet.");
+                IsLoading = false;
             }
-            IsLoading = true;
+            IsLoading = false;
         }
 
         private void ViewItemDetail(SniptModel item)
@@ -207,7 +207,7 @@ namespace Sniptfisher.ViewModel
             catch (Exceptions.ApiRequestException are)
             {
                 System.Diagnostics.Debug.WriteLine(are.Message);
-                this.DialogService.Show("Tenemos problemas para conectarnos con Snipt.net. Por favor, revisa tu conexión a internet.");
+                this.DialogService.Show("Tenemos problemas para conectarnos con Snipt.net. Por favor, revisa tu conexiï¿½n a internet.");
                 IsLoading = false;
             }
             IsLoading = false;
