@@ -94,7 +94,7 @@
         <abu:AppBarItemCommand
             Id="share"
             Command="{Binding ShareCommand}"
-            Text="share" />
+            Text="{Binding LocalizedResources.DetailPage_ShareAppBarIconButton,Source={StaticResource LocalizedStrings}}" />
     </i:Interaction.Behaviors>
 
 </phone:PhoneApplicationPage>

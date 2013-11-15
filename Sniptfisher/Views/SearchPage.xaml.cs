@@ -42,7 +42,7 @@ namespace Sniptfisher.Views
             BindingOperations.SetBinding(
                 progressIndicator, ProgressIndicator.IsIndeterminateProperty, binding);
 
-            progressIndicator.Text = "Searching snipts...";
+            progressIndicator.Text = "Searching.."; // Buscar como acceder a las cadenas traducidas de forma programática.
         }
 
         private void SearchTextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)

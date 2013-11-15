@@ -13,9 +13,11 @@ namespace Sniptfisher.Services
 
         const string UsernameKeyName = "Username";
         const string ApikeyKeyName = "Apikey";
+        const string IsLoggedKeyName = "IsLogged";
 
         const string UsernameKeyDefault = "";
         const string ApikeyKeyDefault = "";
+        const bool IsLoggedKeyDefault = false;
 
         public SettingsService()
         {
@@ -99,6 +101,15 @@ namespace Sniptfisher.Services
             {
                 AddOrUpdateValue(ApikeyKeyName, value);
                 Save();
+            }
+        }
+
+        public bool IsLoggedSetting
+        {
+            get
+            {
+                return (GetValueOrDefault<string>(UsernameKeyName, UsernameKeyDefault) != UsernameKeyDefault) &&
+                        (GetValueOrDefault<string>(ApikeyKeyName, ApikeyKeyDefault) != ApikeyKeyDefault);
             }
         }
     }

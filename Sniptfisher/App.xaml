@@ -10,12 +10,18 @@
     mc:Ignorable="d"
     xmlns:vm="clr-namespace:Sniptfisher.ViewModel"
     xmlns:local="clr-namespace:Sniptfisher"
-    xmlns:converter="clr-namespace:Sniptfisher.Converters">
+    xmlns:converter="clr-namespace:Sniptfisher.Converters"
+    xmlns:services="clr-namespace:Sniptfisher.Services">
   <!--Application Resources-->
   <Application.Resources>
         <local:LocalizedStrings x:Key="LocalizedStrings" />
         <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
+      
+        <services:SettingsService x:Key="Settings" />
+      
+        <!-- Conversores de tipos -->
         <converter:LocalizedResourcesConverter x:Key="LocalizedResourcesConverter" />
+        <converter:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
       
         <!-- Plantillas de datos globales -->
         <!-- Plantilla para elementos de lista de la opcion Compartir -->

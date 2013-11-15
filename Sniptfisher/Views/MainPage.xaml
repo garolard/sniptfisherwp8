@@ -19,37 +19,7 @@
     >
 
     <phone:PhoneApplicationPage.Resources>
-        <Style x:Key="PivotCopyStyle" TargetType="phone:Pivot">
-            <Setter Property="Margin" Value="0"/>
-            <Setter Property="Padding" Value="0"/>
-            <Setter Property="Foreground" Value="{StaticResource PhoneForegroundBrush}"/>
-            <Setter Property="Background" Value="Transparent"/>
-            <Setter Property="ItemsPanel">
-                <Setter.Value>
-                    <ItemsPanelTemplate>
-                        <Grid/>
-                    </ItemsPanelTemplate>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="phone:Pivot">
-                        <Grid HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
-                            <Grid Background="{TemplateBinding Background}" Grid.RowSpan="3"/>
-                            <Grid Grid.RowSpan="2" Background="{StaticResource PhoneAccentBrush}" Margin="0,-6,0,0"/>
-                            <ContentControl ContentTemplate="{TemplateBinding TitleTemplate}" Content="{TemplateBinding Title}" HorizontalAlignment="Left" Margin="24,17,0,-7" Style="{StaticResource PivotTitleStyle}"/>
-                            <Primitives:PivotHeadersControl x:Name="HeadersListElement" Grid.Row="1"/>
-                            <ItemsPresenter x:Name="PivotItemPresenter" Margin="{TemplateBinding Padding}" Grid.Row="2"/>
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+        <!-- Recursos usados en esta página -->
     </phone:PhoneApplicationPage.Resources>
     <phone:PhoneApplicationPage.FontFamily>
         <StaticResource ResourceKey="PhoneFontFamilyNormal"/>
@@ -86,7 +56,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <phone:Panorama Title="Sniptfisher">
+        <phone:Panorama Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}">
             <phone:PanoramaItem CacheMode="{x:Null}">
                 <phone:PanoramaItem.RenderTransform>
                     <TranslateTransform/>
@@ -99,7 +69,8 @@
                         <phone:LongListSelector.ListHeaderTemplate>
                             <DataTemplate>
                                 <Grid Margin="12,0,0,0">
-                                    <TextBlock Text="public" Style="{StaticResource PanoramaItemHeaderTextStyle}" />
+                                    <TextBlock Text="{Binding LocalizedResources.MainPage_PublicPanoramaItem, Source={StaticResource LocalizedStrings}}" 
+                                               Style="{StaticResource PanoramaItemHeaderTextStyle}" />
                                 </Grid>
                             </DataTemplate>
                         </phone:LongListSelector.ListHeaderTemplate>
@@ -134,7 +105,7 @@
                                 </Grid>
                             </DataTemplate>
                         </phone:LongListSelector.ItemTemplate>
-                    <!-- Comportamiento para la carga incremental automática -->
+                        <!-- Comportamiento para la carga incremental automática -->
                         <i:Interaction.Behaviors>
                             <b:IncrementalLoadingBehavior LoadCommand="{Binding LoadMoreItemsCommand}" />
                         </i:Interaction.Behaviors>
@@ -174,12 +145,12 @@
             Type="Button"
             Id="search"
             Command="{Binding SearchCommand}"
-            Text="search" />
+            Text="{Binding Path=LocalizedResources.MainPage_SearchAppBarIconButton, Source={StaticResource LocalizedStrings}}" />
         <abu:AppBarItemCommand
             Type="MenuItem"
             Id="settings"
             Command="{Binding OpenSettingsCommand}"
-            Text="settings" />
+            Text="{Binding Path=LocalizedResources.MainPage_SettingsAppBarMenuItem, Source={StaticResource LocalizedStrings}}" />
     </i:Interaction.Behaviors>
 
 </phone:PhoneApplicationPage>

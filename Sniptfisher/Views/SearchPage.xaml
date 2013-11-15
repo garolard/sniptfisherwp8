@@ -26,7 +26,7 @@
 
         <!--TitlePanel contiene el nombre de la aplicación y el título de la página-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="SEARCH" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <TextBlock Text="{Binding LocalizedResources.SearchPage_PageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
             <TextBox x:Name="SearchTextBox"
                      InputScope="Search"
                      KeyDown="SearchTextBox_KeyDown"
@@ -35,6 +35,22 @@
 
         <!--ContentPanel. Colocar aquí el contenido adicional-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <StackPanel 
+                Orientation="Horizontal" 
+                x:Name="SearchPlaceholderStackPanel"
+                Visibility="{Binding IsLoading, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <TextBlock 
+                    Text="{Binding LocalizedResources.SearchPage_HintSearchTextBlock, Source={StaticResource LocalizedStrings}}" 
+                    Style="{StaticResource PhoneTextSubtleStyle}" 
+                    FontSize="24" 
+                    VerticalAlignment="Top" 
+                    HorizontalAlignment="Left" />
+                <TextBlock
+                    Text="{Binding SearchTerm}"
+                    FontSize="24"
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left" />
+            </StackPanel>
             <phone:LongListSelector
                 ListFooter="{Binding}"
                 ItemsSource="{Binding Results}">
