@@ -133,7 +133,7 @@ namespace Sniptfisher.Resources {
         }
         
         /// <summary>
-        ///   Busca una cadena traducida similar a SHARE.
+        ///   Busca una cadena traducida similar a SEARCH.
         /// </summary>
         public static string SearchPage_PageTitle {
             get {

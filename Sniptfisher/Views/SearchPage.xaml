@@ -42,18 +42,19 @@
                 <TextBlock 
                     Text="{Binding LocalizedResources.SearchPage_HintSearchTextBlock, Source={StaticResource LocalizedStrings}}" 
                     Style="{StaticResource PhoneTextSubtleStyle}" 
-                    FontSize="24" 
+                    FontSize="36" 
                     VerticalAlignment="Top" 
                     HorizontalAlignment="Left" />
                 <TextBlock
-                    Text="{Binding SearchTerm}"
-                    FontSize="24"
+                    x:Name="SearchTermTextBlock"
+                    FontSize="36"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left" />
             </StackPanel>
             <phone:LongListSelector
                 ListFooter="{Binding}"
-                ItemsSource="{Binding Results}">
+                ItemsSource="{Binding Results}"
+                Visibility="{Binding IsLoading, Converter={StaticResource InvertBooleanToVisibilityConverter}}">
                 <!-- Plantilla para elementos de lista -->
                 <phone:LongListSelector.ItemTemplate>
                     <DataTemplate>

@@ -95,6 +95,7 @@
     </Compile>
     <Compile Include="Behaviors\IncrementalLoadingBehavior.cs" />
     <Compile Include="Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="Converters\InvertBooleanToVisibility.cs" />
     <Compile Include="Converters\LocalizedResourcesConverter.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Exceptions\ApiRequestException.cs" />
