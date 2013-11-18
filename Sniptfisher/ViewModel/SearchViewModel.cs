@@ -145,6 +145,7 @@ namespace Sniptfisher.ViewModel
 
         async private void DoSearch(string searchTerm)
         {
+            this.SearchTerm = searchTerm;
             IsLoading = true;
             try
             {

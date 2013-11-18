@@ -35,6 +35,8 @@ namespace Sniptfisher.Model.Public
         {
             get { return "http://www.gravatar.com/avatar/" + email_md5; }
         }
+        public bool is_pro { get; set; }
+        public List<string> lexers { get; set; }
     }
 
     public class TagModel

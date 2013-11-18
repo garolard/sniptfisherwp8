@@ -60,7 +60,7 @@ namespace Sniptfisher.Views
                 this.Focus();
 
                 this.context.DoSearchCommand.Execute(_searchTerm);
-                this.SearchTermTextBlock.Text = _searchTerm;
+                //this.SearchTermTextBlock.Text = _searchTerm;
             }
         }
 

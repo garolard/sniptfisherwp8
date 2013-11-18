@@ -26,7 +26,7 @@
 
         <!--TitlePanel contiene el nombre de la aplicación y el título de la página-->
         <StackPanel Grid.Row="0" Margin="12,17,0,28">
-            <TextBlock Text="{Binding LocalizedResources.SearchPage_PageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/>
+            <!--TextBlock Text="{Binding LocalizedResources.SearchPage_PageTitle, Source={StaticResource LocalizedStrings}}" Style="{StaticResource PhoneTextNormalStyle}"/-->
             <TextBox x:Name="SearchTextBox"
                      InputScope="Search"
                      KeyDown="SearchTextBox_KeyDown"
@@ -46,7 +46,7 @@
                     VerticalAlignment="Top" 
                     HorizontalAlignment="Left" />
                 <TextBlock
-                    x:Name="SearchTermTextBlock"
+                    Text="{Binding SearchTerm}"
                     FontSize="36"
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left" />
