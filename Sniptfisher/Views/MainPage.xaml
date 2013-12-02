@@ -137,6 +137,8 @@
             <shell:ApplicationBar.MenuItems>
                 <shell:ApplicationBarMenuItem
                     Text="settings" />
+                <shell:ApplicationBarMenuItem
+                    Text="about" />
             </shell:ApplicationBar.MenuItems>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
@@ -151,6 +153,11 @@
             Id="settings"
             Command="{Binding OpenSettingsCommand}"
             Text="{Binding Path=LocalizedResources.MainPage_SettingsAppBarMenuItem, Source={StaticResource LocalizedStrings}}" />
+        <abu:AppBarItemCommand
+            Type="MenuItem"
+            Id="about"
+            Command="{Binding AboutCommand}"
+            Text="about" />
     </i:Interaction.Behaviors>
 
 </phone:PhoneApplicationPage>

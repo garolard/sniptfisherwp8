@@ -103,6 +103,7 @@
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Services\Interfaces\ISettingsService.cs" />
     <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="ViewModel\Interfaces\IAboutViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\ISearchViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\ISettingsViewModel.cs" />
     <Compile Include="ViewModel\SearchViewModel.cs" />
@@ -241,6 +242,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\About\About.csproj">
+      <Project>{85511E80-05CB-43FE-BA53-D347C10388EB}</Project>
+      <Name>About</Name>
+    </ProjectReference>
     <ProjectReference Include="C:\Users\Gabriel\Downloads\ScrollableTextBlockR5\Phone.Controls\Phone.Controls.csproj">
       <Project>{71A41463-066F-444A-B774-5FB036C913A0}</Project>
       <Name>Phone.Controls</Name>
