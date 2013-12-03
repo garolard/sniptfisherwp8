@@ -9,8 +9,5 @@ namespace Sniptfisher.Repository.Interfaces
 {
     public interface IUserRepository : IRepository<User, int>
     {
-        // Métodos propios de los usuarios
-        bool LogIn();
-        bool LogOut();
     }
 }

@@ -8,16 +8,6 @@ namespace Sniptfisher.Repository
 {
     public class UserRepository : Interfaces.IUserRepository
     {
-        public bool LogIn()
-        {
-            throw new NotImplementedException();
-        }
-
-        public bool LogOut()
-        {
-            throw new NotImplementedException();
-        }
-
         public Task<Model.Public.User> Create(Model.Public.User obj)
         {
             throw new NotImplementedException();

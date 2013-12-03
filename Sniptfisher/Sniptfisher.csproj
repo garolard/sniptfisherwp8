@@ -102,7 +102,9 @@
     <Compile Include="Repository\Interfaces\IUserRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Services\Interfaces\ISettingsService.cs" />
+    <Compile Include="Services\Interfaces\IUserService.cs" />
     <Compile Include="Services\SettingsService.cs" />
+    <Compile Include="Services\UserService.cs" />
     <Compile Include="ViewModel\Interfaces\IAboutViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\ISearchViewModel.cs" />
     <Compile Include="ViewModel\Interfaces\ISettingsViewModel.cs" />
