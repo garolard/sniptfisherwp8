@@ -20,12 +20,12 @@ namespace Sniptfisher.Repository
             restClient = new RestSharp.RestClient(PUBLIC_API_URI);
         }
 
-        public Task<SniptModel> Create(SniptModel obj)
+        public Task<Snipt> Create(Snipt obj)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Model.Public.SniptModel obj)
+        public void Update(Model.Public.Snipt obj)
         {
             throw new NotImplementedException();
         }
@@ -36,17 +36,17 @@ namespace Sniptfisher.Repository
         }
 
         /// <summary>
-        /// Encuentra un <see cref="SniptModel"/> a traves de la API pública
+        /// Encuentra un <see cref="Snipt"/> a traves de la API pública
         /// </summary>
         /// <param name="objKey">El ID del SniptModel</param>
-        /// <returns>Un objeto de tipo <see cref="SniptModel"/></returns>
-        public Task<SniptModel> Find(int objKey)
+        /// <returns>Un objeto de tipo <see cref="Snipt"/></returns>
+        public Task<Snipt> Find(int objKey)
         {
             IRestRequest request = new RestRequest(SNIPT_API_RESOURCE + "/{sniptId}", Method.GET);
-            var taskCompletionSource = new TaskCompletionSource<SniptModel>();
+            var taskCompletionSource = new TaskCompletionSource<Snipt>();
             request.AddUrlSegment("sniptId", objKey.ToString());
 
-            restClient.ExecuteAsync<SniptModel>(request, (response) =>
+            restClient.ExecuteAsync<Snipt>(request, (response) =>
                 {
                     if (response.ResponseStatus == ResponseStatus.Error)
                     {
@@ -73,19 +73,19 @@ namespace Sniptfisher.Repository
         }
 
         /// <summary>
-        /// Devuelve una lista de <see cref="SniptModel"/>'s públicos a traves
+        /// Devuelve una lista de <see cref="Snipt"/>'s públicos a traves
         /// del API público. Actualmente se limita a los primeros 20, faltaría
         /// algún mecanismo para parametrizarlo fácilmente.
         /// </summary>
-        /// <returns>Una colección observable de <see cref="SniptModel"/></returns>
-        public Task<ObservableCollection<SniptModel>> FindAll()
+        /// <returns>Una colección observable de <see cref="Snipt"/></returns>
+        public Task<ObservableCollection<Snipt>> FindAll()
         {
             // Preparo la petición a la API y un objeto de "Finalización de Tarea"
             IRestRequest request = new RestRequest(SNIPT_API_RESOURCE, Method.GET);
-            var taskCompletionSource = new TaskCompletionSource<ObservableCollection<SniptModel>>();
+            var taskCompletionSource = new TaskCompletionSource<ObservableCollection<Snipt>>();
 
             // Ejecuto la petición y le asigno una lambda que terminará la tarea
-            restClient.ExecuteAsync<PublicResponse>(request, (response) =>
+            restClient.ExecuteAsync<ApiResponse>(request, (response) =>
                 {
                     // Si hay algún error intentando realizar la peticion HTTP lanzo excepción
                     if (response.ResponseStatus == ResponseStatus.Error)
@@ -98,8 +98,8 @@ namespace Sniptfisher.Repository
                     if (response.ResponseStatus == ResponseStatus.Completed &&
                         response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
-                        ObservableCollection<SniptModel> items = new ObservableCollection<SniptModel>();
-                        foreach (SniptModel item in response.Data.objects)
+                        ObservableCollection<Snipt> items = new ObservableCollection<Snipt>();
+                        foreach (Snipt item in response.Data.objects)
                         {
                             items.Add(item);
                         }
@@ -118,14 +118,14 @@ namespace Sniptfisher.Repository
             return taskCompletionSource.Task;
         }
 
-        public Task<ObservableCollection<SniptModel>> FindByUserId(int userId)
+        public Task<ObservableCollection<Snipt>> FindByUserId(int userId)
         {
             IRestRequest request = new RestRequest(SNIPT_API_RESOURCE, Method.GET);
-            var taskCompletionSource = new TaskCompletionSource<ObservableCollection<SniptModel>>();
+            var taskCompletionSource = new TaskCompletionSource<ObservableCollection<Snipt>>();
 
             request.AddParameter("user", userId);
 
-            restClient.ExecuteAsync<PublicResponse>(request, (response) =>
+            restClient.ExecuteAsync<ApiResponse>(request, (response) =>
                 {
                     if (response.ResponseStatus == ResponseStatus.Error)
                     {
@@ -134,8 +134,8 @@ namespace Sniptfisher.Repository
 
                     if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
-                        ObservableCollection<SniptModel> items = new ObservableCollection<SniptModel>();
-                        foreach (SniptModel item in response.Data.objects)
+                        ObservableCollection<Snipt> items = new ObservableCollection<Snipt>();
+                        foreach (Snipt item in response.Data.objects)
                         {
                             items.Add(item);
                         }
@@ -153,14 +153,14 @@ namespace Sniptfisher.Repository
             return taskCompletionSource.Task;
         }
 
-        public Task<ObservableCollection<SniptModel>> FindWithOffset(int offset)
+        public Task<ObservableCollection<Snipt>> FindWithOffset(int offset)
         {
             IRestRequest request = new RestRequest(SNIPT_API_RESOURCE, Method.GET);
-            var taskCompletionSource = new TaskCompletionSource<ObservableCollection<SniptModel>>();
+            var taskCompletionSource = new TaskCompletionSource<ObservableCollection<Snipt>>();
 
             request.AddParameter("offset", offset);
 
-            restClient.ExecuteAsync<PublicResponse>(request, (response) =>
+            restClient.ExecuteAsync<ApiResponse>(request, (response) =>
             {
                 if (response.ResponseStatus == ResponseStatus.Error)
                 {
@@ -169,8 +169,8 @@ namespace Sniptfisher.Repository
 
                 if (response.StatusCode == System.Net.HttpStatusCode.OK)
                 {
-                    ObservableCollection<SniptModel> items = new ObservableCollection<SniptModel>();
-                    foreach (SniptModel item in response.Data.objects)
+                    ObservableCollection<Snipt> items = new ObservableCollection<Snipt>();
+                    foreach (Snipt item in response.Data.objects)
                     {
                         items.Add(item);
                     }
@@ -188,14 +188,14 @@ namespace Sniptfisher.Repository
             return taskCompletionSource.Task;
         }
 
-        public Task<ObservableCollection<SniptModel>> FindWithQuery(string query)
+        public Task<ObservableCollection<Snipt>> FindWithQuery(string query)
         {
             IRestRequest request = new RestRequest(SNIPT_API_RESOURCE, Method.GET);
-            var taskCompletionSource = new TaskCompletionSource<ObservableCollection<SniptModel>>();
+            var taskCompletionSource = new TaskCompletionSource<ObservableCollection<Snipt>>();
 
             request.AddParameter("q", query);
 
-            restClient.ExecuteAsync<PublicResponse>(request, (response) =>
+            restClient.ExecuteAsync<ApiResponse>(request, (response) =>
                 {
                     // Si hay algún error intentando realizar la peticion HTTP lanzo excepción
                     if (response.ResponseStatus == ResponseStatus.Error)
@@ -208,8 +208,8 @@ namespace Sniptfisher.Repository
                     if (response.ResponseStatus == ResponseStatus.Completed &&
                         response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
-                        ObservableCollection<SniptModel> items = new ObservableCollection<SniptModel>();
-                        foreach (SniptModel item in response.Data.objects)
+                        ObservableCollection<Snipt> items = new ObservableCollection<Snipt>();
+                        foreach (Snipt item in response.Data.objects)
                         {
                             items.Add(item);
                         }
@@ -228,7 +228,7 @@ namespace Sniptfisher.Repository
             return taskCompletionSource.Task;
         }
         
-        public Task<ObservableCollection<SniptModel>> FindWithOffsetAndQuery(int offset, string query)
+        public Task<ObservableCollection<Snipt>> FindWithOffsetAndQuery(int offset, string query)
         {
             throw new NotImplementedException();
         }

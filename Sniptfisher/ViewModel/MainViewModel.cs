@@ -40,13 +40,13 @@ namespace Sniptfisher.ViewModel
         /// </summary>
         public const string ItemsPropertyName = "Items";
 
-        private ObservableCollection<SniptModel> _items = new ObservableCollection<SniptModel>();
+        private ObservableCollection<Snipt> _items = new ObservableCollection<Snipt>();
 
         /// <summary>
         /// Sets and gets the Items property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public ObservableCollection<SniptModel> Items
+        public ObservableCollection<Snipt> Items
         {
             get
             {
@@ -166,7 +166,7 @@ namespace Sniptfisher.ViewModel
             this.NavigationService = navigationService;
             this.DialogService = dialogService;
 
-            this.ViewItemDetailCommand = new RelayCommand<SniptModel>(this.ViewItemDetail);
+            this.ViewItemDetailCommand = new RelayCommand<Snipt>(this.ViewItemDetail);
             this.LoadMoreItemsCommand = new RelayCommand(this.LoadExtraItems);
             this.SearchCommand = new RelayCommand(this.SearchSnipts);
             this.OpenSettingsCommand = new RelayCommand(this.OpenSettings);
@@ -190,7 +190,7 @@ namespace Sniptfisher.ViewModel
             IsLoading = false;
         }
 
-        private void ViewItemDetail(SniptModel item)
+        private void ViewItemDetail(Snipt item)
         {
             this.NavigationService.NavigateTo<Interfaces.IDetailViewModel>(item);
         }
@@ -201,7 +201,7 @@ namespace Sniptfisher.ViewModel
             try
             {
                 var newItems = await this.LocalSniptRepository.FindWithOffset(this.Items.Count);
-                foreach (SniptModel item in newItems)
+                foreach (Snipt item in newItems)
                 {
                     this.Items.Add(item);
                 }

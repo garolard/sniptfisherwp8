@@ -10,7 +10,7 @@ namespace Sniptfisher.ViewModel.Interfaces
 {
     public interface ISearchViewModel
     {
-        ObservableCollection<SniptModel> Results { get; }
+        ObservableCollection<Snipt> Results { get; }
         bool IsLoading { get; }
 
         ICommand ViewItemDetailCommand { get; }

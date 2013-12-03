@@ -7,12 +7,12 @@ using Sniptfisher.Model.Public;
 
 namespace Sniptfisher.Repository.Interfaces
 {
-    public interface ISniptRepository : IRepository<SniptModel, int>
+    public interface ISniptRepository : IRepository<Snipt, int>
     {
         // TODO: Agregar métodos específicos para los Snipts
-        Task<ObservableCollection<SniptModel>> FindByUserId(int usrId);
-        Task<ObservableCollection<SniptModel>> FindWithOffset(int offset);
-        Task<ObservableCollection<SniptModel>> FindWithQuery(string query);
-        Task<ObservableCollection<SniptModel>> FindWithOffsetAndQuery(int offset, string query);
+        Task<ObservableCollection<Snipt>> FindByUserId(int usrId);
+        Task<ObservableCollection<Snipt>> FindWithOffset(int offset);
+        Task<ObservableCollection<Snipt>> FindWithQuery(string query);
+        Task<ObservableCollection<Snipt>> FindWithOffsetAndQuery(int offset, string query);
     }
 }

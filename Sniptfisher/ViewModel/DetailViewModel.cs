@@ -20,8 +20,8 @@ namespace Sniptfisher.ViewModel
         {
             set
             {
-                if (value is SniptModel && value != ActiveItem)
-                    ActiveItem = value as SniptModel;
+                if (value is Snipt && value != ActiveItem)
+                    ActiveItem = value as Snipt;
             }
         }
 
@@ -31,13 +31,13 @@ namespace Sniptfisher.ViewModel
         /// </summary>
         public const string ActiveItemPropertyName = "ActiveItem";
 
-        private SniptModel _activeItem = null;
+        private Snipt _activeItem = null;
 
         /// <summary>
         /// Sets and gets the ActiveItem property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public SniptModel ActiveItem
+        public Snipt ActiveItem
         {
             get
             {
@@ -93,13 +93,13 @@ namespace Sniptfisher.ViewModel
         /// </summary>
         public const string RelatedItemsPropertyName = "RelatedItems";
 
-        private ObservableCollection<SniptModel> _relatedItems = new ObservableCollection<SniptModel>();
+        private ObservableCollection<Snipt> _relatedItems = new ObservableCollection<Snipt>();
 
         /// <summary>
         /// Sets and gets the RelatedItems property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public ObservableCollection<SniptModel> RelatedItems
+        public ObservableCollection<Snipt> RelatedItems
         {
             get
             {
@@ -141,7 +141,7 @@ namespace Sniptfisher.ViewModel
             this.DialogService = dialogService;
 
             this.ShareCommand = new RelayCommand(this.ShareItem);
-            this.ChangeActiveItemCommand = new RelayCommand<SniptModel>(this.ChangeActiveItem);
+            this.ChangeActiveItemCommand = new RelayCommand<Snipt>(this.ChangeActiveItem);
         }
 
         private void ShareItem()
@@ -150,7 +150,7 @@ namespace Sniptfisher.ViewModel
             this.ShareService.Share(ActiveItem.title, message, ActiveItem.full_absolute_url);
         }
 
-        private void ChangeActiveItem(SniptModel item)
+        private void ChangeActiveItem(Snipt item)
         {
             this.ActiveItem = item;
         }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Sniptfisher.Model.Public
 {
-    public class SniptModel
+    public class Snipt
     {
         public int id { get; set; }
         public string title { get; set; }
@@ -16,18 +16,25 @@ namespace Sniptfisher.Model.Public
         public string description { get; set; }
         public int line_count { get; set; }
         public string stylized { get; set; }
+        public string key { get; set; }
+        public bool @public { get; set; }
+        public bool blog_post { get; set; }
         public string created { get; set; }
         public string modified { get; set; }
+        public DateTime publish_date { get; set; }
         public string embed_url { get; set; }
         public string full_absolute_url { get; set; }
         public string description_rendered { get; set; }
-        public UserModel user { get; set; }
-        public List<TagModel> tags { get; set; }
+        public int favs { get; set; }
+        public int views { get; set; }
+        public User user { get; set; }
+        public List<Tag> tags { get; set; }
     }
 
-    public class UserModel
+    public class User
     {
         public int id { get; set; }
+        public string email { get; set; }
         public string username { get; set; }
         public string snipts { get; set; }
         public string email_md5 { get; set; }
@@ -39,7 +46,7 @@ namespace Sniptfisher.Model.Public
         public List<string> lexers { get; set; }
     }
 
-    public class TagModel
+    public class Tag
     {
         public int id { get; set; }
         public string name { get; set; }
@@ -48,12 +55,19 @@ namespace Sniptfisher.Model.Public
         public int count { get; set; }
     }
 
+    public class Favorite
+    {
+        public int id { get; set; }
+        public string snipt { get; set; }
+        public User user { get; set; }
+    }
+
     public class Metadata
     { }
 
-    public class PublicResponse
+    public class ApiResponse
     {
         public Metadata meta { get; set; }
-        public List<SniptModel> objects { get; set; }
+        public List<Snipt> objects { get; set; }
     }
 }

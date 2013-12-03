@@ -18,12 +18,12 @@ namespace Sniptfisher.Repository
             throw new NotImplementedException();
         }
 
-        public Task<Model.Public.UserModel> Create(Model.Public.UserModel obj)
+        public Task<Model.Public.User> Create(Model.Public.User obj)
         {
             throw new NotImplementedException();
         }
 
-        public void Update(Model.Public.UserModel obj)
+        public void Update(Model.Public.User obj)
         {
             throw new NotImplementedException();
         }
@@ -33,12 +33,12 @@ namespace Sniptfisher.Repository
             throw new NotImplementedException();
         }
 
-        public Task<Model.Public.UserModel> Find(int objKey)
+        public Task<Model.Public.User> Find(int objKey)
         {
             throw new NotImplementedException();
         }
 
-        public Task<System.Collections.ObjectModel.ObservableCollection<Model.Public.UserModel>> FindAll()
+        public Task<System.Collections.ObjectModel.ObservableCollection<Model.Public.User>> FindAll()
         {
             throw new NotImplementedException();
         }

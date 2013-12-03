@@ -53,13 +53,13 @@ namespace Sniptfisher.ViewModel
         /// </summary>
         public const string ResultsPropertyName = "Results";
 
-        private ObservableCollection<SniptModel> _results = new ObservableCollection<SniptModel>();
+        private ObservableCollection<Snipt> _results = new ObservableCollection<Snipt>();
 
         /// <summary>
         /// Sets and gets the Results property.
         /// Changes to that property's value raise the PropertyChanged event. 
         /// </summary>
-        public ObservableCollection<SniptModel> Results
+        public ObservableCollection<Snipt> Results
         {
             get
             {
@@ -133,12 +133,12 @@ namespace Sniptfisher.ViewModel
             this.DialogService = dialogService;
 
             // Inicializar comandos
-            this.ViewItemDetailCommand = new RelayCommand<SniptModel>(this.ViewItemDetail);
+            this.ViewItemDetailCommand = new RelayCommand<Snipt>(this.ViewItemDetail);
             this.DoSearchCommand = new RelayCommand<string>(this.DoSearch);
             this.LoadMoreResultsCommand = new RelayCommand(this.LoadMoreResults);
         }
 
-        private void ViewItemDetail(SniptModel item)
+        private void ViewItemDetail(Snipt item)
         {
             this.NavigationService.NavigateTo<Interfaces.IDetailViewModel>(item);
         }

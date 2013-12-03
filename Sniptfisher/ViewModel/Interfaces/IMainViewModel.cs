@@ -10,7 +10,7 @@ namespace Sniptfisher.ViewModel.Interfaces
 {
     public interface IMainViewModel
     {
-        ObservableCollection<SniptModel> Items { get; }
+        ObservableCollection<Snipt> Items { get; }
         bool IsDataLoaded { get; }
 
         ICommand ViewItemDetailCommand { get; }
