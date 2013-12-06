@@ -16,6 +16,8 @@
     Orientation="Portrait"
     DataContext="{Binding Path=Main, Source={StaticResource Locator}}"
     shell:SystemTray.IsVisible="True"
+    shell:SystemTray.BackgroundColor="{StaticResource AppBackgroundColor}"
+    shell:SystemTray.ForegroundColor="{StaticResource AppForegroundColor}"
     >
 
     <phone:PhoneApplicationPage.Resources>
@@ -27,11 +29,8 @@
     <phone:PhoneApplicationPage.FontSize>
         <StaticResource ResourceKey="PhoneFontSizeNormal"/>
     </phone:PhoneApplicationPage.FontSize>
-    <phone:PhoneApplicationPage.Foreground>
-        <StaticResource ResourceKey="PhoneForegroundBrush"/>
-    </phone:PhoneApplicationPage.Foreground>
 
-        <!-- LOCALIZATION NOTE:
+    <!-- LOCALIZATION NOTE:
             To localize the displayed strings copy their values to appropriately named
             keys in the app's neutral language resource file (AppResources.resx) then
             replace the hard-coded text value between the attributes' quotation marks
@@ -51,12 +50,19 @@
          -->
     <!--LayoutRoot is the root grid where all page content is placed-->
     <Grid x:Name="LayoutRoot"
-		Background="Transparent">
+		Background="{StaticResource AppBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <phone:Panorama Title="{Binding Path=LocalizedResources.ApplicationTitle, Source={StaticResource LocalizedStrings}}">
+        <phone:Panorama Foreground="{StaticResource AppForegroundBrush}">
+            <phone:Panorama.TitleTemplate>
+                <DataTemplate>
+                    <StackPanel Margin="12,64">
+                        <Image Source="/Assets/SniptfisherLogo.png" Width="150" />
+                    </StackPanel>
+                </DataTemplate>
+            </phone:Panorama.TitleTemplate>
             <phone:PanoramaItem CacheMode="{x:Null}">
                 <phone:PanoramaItem.RenderTransform>
                     <TranslateTransform/>
@@ -65,12 +71,12 @@
                     <phone:LongListSelector 
                         ListFooter="{Binding}"
                         ItemsSource="{Binding Items}"
-                        Margin="0,-38,0,36">
+                        Margin="0,-38,0,36" Foreground="{StaticResource AppForegroundBrush}">
                         <phone:LongListSelector.ListHeaderTemplate>
                             <DataTemplate>
                                 <Grid Margin="12,0,0,0">
                                     <TextBlock Text="{Binding LocalizedResources.MainPage_PublicPanoramaItem, Source={StaticResource LocalizedStrings}}" 
-                                               Style="{StaticResource PanoramaItemHeaderTextStyle}" />
+                                               Style="{StaticResource PanoramaItemHeaderTextStyle}" Foreground="{StaticResource AppAccentBrush}" />
                                 </Grid>
                             </DataTemplate>
                         </phone:LongListSelector.ListHeaderTemplate>
@@ -92,8 +98,8 @@
                                         </Border.Background>
                                     </Border>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="{Binding title}" Style="{StaticResource PhoneTextBlockBase}" />
-                                        <TextBlock Text="{Binding user.username}" Style="{StaticResource PhoneTextAccentStyle}" />
+                                        <TextBlock Text="{Binding title}" Style="{StaticResource PhoneTextBlockBase}" Foreground="{StaticResource AppForegroundBrush}" />
+                                        <TextBlock Text="{Binding user.username}" Style="{StaticResource PhoneTextAccentStyle}" Foreground="{StaticResource AppAccentBrush}" />
                                     </StackPanel>
 
                                     <i:Interaction.Triggers>
@@ -112,7 +118,7 @@
                     </phone:LongListSelector>
                 </Grid>
             </phone:PanoramaItem>
-            <phone:PanoramaItem CacheMode="{x:Null}" Header="item2">
+            <phone:PanoramaItem CacheMode="{x:Null}" Header="item2" Foreground="{StaticResource AppAccentBrush}">
                 <phone:PanoramaItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PanoramaItem.RenderTransform>

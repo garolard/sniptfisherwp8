@@ -35,6 +35,13 @@
                     />
             </Grid>
         </DataTemplate>
+      
+        <SolidColorBrush x:Key="AppBackgroundBrush" Color="White" />
+        <SolidColorBrush x:Key="AppForegroundBrush" Color="Black" />
+        <SolidColorBrush x:Key="AppAccentBrush" Color="#ce0071" />
+        <Color x:Key="AppBackgroundColor">#FFFFFF</Color>
+        <Color x:Key="AppForegroundColor">#000000</Color>
+        <Color x:Key="AppAccentColor">#ce0071</Color>
     </Application.Resources>
   <Application.ApplicationLifetimeObjects>
     <!--Required object that handles lifetime events for the application-->
