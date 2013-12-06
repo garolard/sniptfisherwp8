@@ -9,28 +9,38 @@
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:abu="clr-namespace:AppBarUtils;assembly=AppBarUtils"
     xmlns:controls="clr-namespace:Phone.Controls;assembly=Phone.Controls"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
+    toolkit:TiltEffect.IsTiltEnabled="True"
     shell:SystemTray.IsVisible="True"
+	shell:SystemTray.BackgroundColor="{StaticResource AppBackgroundColor}"
+	shell:SystemTray.ForegroundColor="{StaticResource AppForegroundColor}"
     DataContext="{Binding Detail, Source={StaticResource Locator}}">
 
     <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
-    <Grid x:Name="LayoutRoot" Background="Transparent" DataContext="{Binding ActiveItem}">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource AppBackgroundBrush}" DataContext="{Binding ActiveItem}" Margin="0,-4,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <phone:Pivot Grid.Row="1" Title="{Binding Path=user.username}" x:Name="DetailPivot">
-            <phone:PivotItem CacheMode="{x:Null}" Header="{Binding title}">
+        <phone:Pivot Grid.Row="1" Title="{Binding Path=user.username}" x:Name="DetailPivot" Foreground="{StaticResource AppForegroundBrush}">
+            <phone:PivotItem CacheMode="{x:Null}">
+				<phone:PivotItem.Header>
+					<TextBlock Text="{Binding title}" Foreground="{StaticResource AppAccentBrush}" FontFamily="Segoe WP Semibold" />
+				</phone:PivotItem.Header>
                 <Grid>
-                    <controls:ScrollableTextBlock Text="{Binding code}" Width="Auto" Height="Auto" Margin="0,0,0,12" />
+                    <controls:ScrollableTextBlock Text="{Binding code}" Width="Auto" Height="Auto" Margin="0,0,0,12" Foreground="{StaticResource AppForegroundBrush}" />
                 </Grid>
             </phone:PivotItem>
-            <phone:PivotItem CacheMode="{x:Null}" Header="{Binding Path=user.username}">
+            <phone:PivotItem CacheMode="{x:Null}">
+				<phone:PivotItem.Header>
+					<TextBlock Text="{Binding Path=user.username}" Foreground="{StaticResource AppAccentBrush}" FontFamily="Segoe WP Semibold" />
+				</phone:PivotItem.Header>
                 <Grid>
                     <phone:LongListSelector
                         DataContext="{Binding ElementName=DetailPageName, Path=DataContext}"
@@ -52,8 +62,8 @@
                                         </Border.Background>
                                     </Border>
                                     <StackPanel Grid.Column="1">
-                                        <TextBlock Text="{Binding title}" Style="{StaticResource PhoneTextBlockBase}" />
-                                        <TextBlock Text="{Binding user.username}" Style="{StaticResource PhoneTextAccentStyle}" />
+                                        <TextBlock Text="{Binding title}" Style="{StaticResource PhoneTextBlockBase}" Foreground="{StaticResource AppForegroundBrush}" />
+                                        <TextBlock Text="{Binding user.username}" Style="{StaticResource PhoneTextAccentStyle}" Foreground="{StaticResource AppAccentBrush}" />
                                     </StackPanel>
 
                                     <i:Interaction.Triggers>

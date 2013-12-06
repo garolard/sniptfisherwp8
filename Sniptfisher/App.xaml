@@ -1,4 +1,4 @@
-<Application 
+﻿<Application 
     x:Class="Sniptfisher.App" 
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
@@ -35,6 +35,33 @@
                     />
             </Grid>
         </DataTemplate>
+
+		<!-- Estilos personalizados para controles -->
+		<Style x:Key="PanoramaItemCustomStyle" TargetType="phone:PanoramaItem">
+    		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+    		<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+    		<Setter Property="Template">
+    			<Setter.Value>
+    				<ControlTemplate TargetType="phone:PanoramaItem">
+    					<Grid Background="{TemplateBinding Background}" Margin="12,-24,0,0">
+    						<Grid.RowDefinitions>
+    							<RowDefinition Height="auto"/>
+    							<RowDefinition Height="*"/>
+    						</Grid.RowDefinitions>
+    						<ContentControl x:Name="header" CharacterSpacing="-35" ContentTemplate="{TemplateBinding HeaderTemplate}" Content="{TemplateBinding Header}" FontSize="66" FontFamily="{StaticResource PhoneFontFamilyBold}" HorizontalAlignment="Left" Margin="12,-2,0,38">
+    							<ContentControl.Foreground>
+    								<SolidColorBrush Color="{StaticResource AppAccentColor}"/>
+    							</ContentControl.Foreground>
+    							<ContentControl.RenderTransform>
+    								<TranslateTransform x:Name="headerTransform"/>
+    							</ContentControl.RenderTransform>
+    						</ContentControl>
+    						<ContentPresenter Content="{TemplateBinding Content}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" Grid.Row="1" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+    					</Grid>
+    				</ControlTemplate>
+    			</Setter.Value>
+    		</Setter>
+    	</Style>
       
         <SolidColorBrush x:Key="AppBackgroundBrush" Color="White" />
         <SolidColorBrush x:Key="AppForegroundBrush" Color="Black" />
