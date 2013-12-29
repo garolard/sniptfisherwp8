@@ -143,17 +143,18 @@ namespace Sniptfisher.ViewModel
             this.NavigationService.NavigateTo<Interfaces.IDetailViewModel>(item);
         }
 
-        async private void DoSearch(string searchTerm)
+        async private void DoSearch(string SearchTerm)
         {
-            this.SearchTerm = searchTerm;
+            this.SearchTerm = SearchTerm;
             IsLoading = true;
             try
             {
-                this.Results = await this.LocalSniptRepository.FindWithQuery(searchTerm);
+                this.Results = await this.LocalSniptRepository.FindWithQuery(SearchTerm);
             }
             catch (Exceptions.ApiRequestException are)
             {
                 System.Diagnostics.Debug.WriteLine(are.Message);
+                // TODO: Traducir cadena
                 this.DialogService.Show("Tenemos problemas para encontrar lo que buscas. Usa otro término o prueba más tarde.");
                 IsLoading = false;
             }
@@ -162,7 +163,24 @@ namespace Sniptfisher.ViewModel
 
         async private void LoadMoreResults()
         {
-            // var newItems = await this.LocalSniptRepository.FindWithOffset();
+            // TODO: Mostrar indicador de progreso sin ocultar lista de resultados
+            try
+            {
+                var newItems = await this.LocalSniptRepository.FindWithOffsetAndQuery(this.Results.Count, SearchTerm);
+                if (newItems.Count > 0)
+                {
+                    foreach (Snipt item in newItems) 
+                    {
+                        this.Results.Add(item);
+                    }
+                }
+            }
+            catch (Exceptions.ApiRequestException are)
+            {
+                System.Diagnostics.Debug.WriteLine(are.Message);
+                // TODO: Traducir cadena
+                this.DialogService.Show("Tenemos problemas para encontrar más resultados, o bien no hay más resultados coincidentes con tu búsqueda");
+            }
         }
     }
 }
