@@ -8,5 +8,6 @@ namespace Sniptfisher.ViewModel.Interfaces
 {
     public interface ISettingsViewModel
     {
+        void TryLogin(string username, string apiKey);
     }
 }

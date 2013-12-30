@@ -70,4 +70,10 @@ namespace Sniptfisher.Model.Public
         public Metadata meta { get; set; }
         public List<Snipt> objects { get; set; }
     }
+
+    public class UserApiResponse
+    {
+        public Metadata meta { get; set; }
+        public List<User> objects { get; set; }
+    }
 }
