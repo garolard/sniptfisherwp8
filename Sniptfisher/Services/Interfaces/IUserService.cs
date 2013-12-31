@@ -8,7 +8,7 @@ namespace Sniptfisher.Services.Interfaces
 {
     public interface IUserService
     {
-        bool LogIn(string username, string apiKey);
+        Task<bool> LogIn(string username, string apiKey);
         void LogOut();
         List<Model.Public.Snipt> GetAllSnipts(int userId);
         bool FavoriteSnipt(int userId, int targetSniptId);

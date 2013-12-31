@@ -11,7 +11,7 @@
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
-	DataContext="{StaticResource Settings}"
+	DataContext="{Binding Settings, Source={StaticResource Locator}}"
     shell:SystemTray.IsVisible="True">
 
     <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
@@ -29,9 +29,9 @@
         		<phone:PivotItem CacheMode="{x:Null}" Header="account">
         			<StackPanel>
         				<TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Text="Username"/>
-        				<TextBox x:Name="UsernameTextBox" Height="72" TextWrapping="Wrap" Text="{Binding UsernameSetting, Mode=TwoWay}"/>
+        				<TextBox x:Name="UsernameTextBox" Height="72" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay}"/>
         				<TextBlock TextWrapping="Wrap" Text="Apikey" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,12,12,0"/>
-        				<TextBox x:Name="ApikeyTextBox" Height="72" TextWrapping="Wrap" Text="{Binding ApikeySetting, Mode=TwoWay}"/>
+        				<TextBox x:Name="ApikeyTextBox" Height="72" TextWrapping="Wrap" Text="{Binding ApiKey, Mode=TwoWay}"/>
                         <Button x:Name="LoginButton" Content="Sign in" Command="{Binding TryLoginCommand}" />
         			</StackPanel>
         		</phone:PivotItem>

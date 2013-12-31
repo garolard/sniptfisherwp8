@@ -12,6 +12,14 @@ namespace Sniptfisher.Services
         private readonly IUserRepository UserRepository;
         private readonly Services.SettingsService SettingsService;
 
+        public UserService(
+            IUserRepository userRepository,
+            SettingsService settingsService)
+        {
+            this.UserRepository = userRepository;
+            this.SettingsService = settingsService;
+        }
+
         async public Task<bool> LogIn(string username, string apiKey)
         {
             // Primero se consulta https://snipt.net/api/public/user/?username=:username

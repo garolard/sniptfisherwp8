@@ -50,12 +50,14 @@ namespace Sniptfisher.ViewModel
 
             /* Repositorios */
             SimpleIoc.Default.Register<ISniptRepository, SniptRepository>();
+            SimpleIoc.Default.Register<IUserRepository, UserRepository>();
             
             /* Servicios */
             SimpleIoc.Default.Register<INavigationService, NavigationService>();
             SimpleIoc.Default.Register<IShareService, ShareService>();
             SimpleIoc.Default.Register<IDialogService, DialogService>();
-            SimpleIoc.Default.Register<ISettingsService, SettingsService>();
+            SimpleIoc.Default.Register<SettingsService, SettingsService>(); //Modificar interfaz de SettingsService
+            SimpleIoc.Default.Register<IUserService, UserService>();
 
             /* ViewModels */
             SimpleIoc.Default.Register<MainViewModel>();

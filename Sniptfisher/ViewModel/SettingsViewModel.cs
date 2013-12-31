@@ -129,11 +129,11 @@ namespace Sniptfisher.ViewModel
             this.TryLoginCommand = new RelayCommand(this.TryLogin);
         }
 
-        public void TryLogin()
+        async public void TryLogin()
         {
             try
             {
-                this.IsLogged = this.UserService.LogIn(this.Username, this.ApiKey);
+                this.IsLogged = await this.UserService.LogIn(this.Username, this.ApiKey);
             }
             catch (Exceptions.ApiRequestException are)
             {

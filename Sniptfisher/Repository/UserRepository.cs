@@ -63,7 +63,43 @@ namespace Sniptfisher.Repository
                         response.StatusCode == System.Net.HttpStatusCode.OK)
                     {
                         var item = response.Data;
-                        taskCompletionSource.TrySetResult(item.objects[0]);
+                        if (item.objects.Count > 0)
+                            taskCompletionSource.TrySetResult(item.objects[0]);
+                        else
+                            taskCompletionSource.TrySetException(new ApiRequestException("Error de conexión realizando petición a la API en el método Find()"));
+                    }
+                    else if (response.ResponseStatus == ResponseStatus.Completed &&
+                            (response.StatusCode == System.Net.HttpStatusCode.NotFound ||
+                             response.StatusCode == System.Net.HttpStatusCode.BadRequest ||
+                             response.StatusCode == System.Net.HttpStatusCode.InternalServerError))
+                    {
+                        taskCompletionSource.TrySetException(
+                            new ApiRequestException("Error realizando petición a la API en el método Find(): " + response.StatusCode + " " + response.StatusDescription));
+                    }
+                });
+
+            return taskCompletionSource.Task;
+        }
+
+        public Task<Model.Public.User> FindPrivate(int userId, string username, string apiKey)
+        {
+            restClient.AddDefaultHeader("Authorization", "ApiKey " + username + ":" + apiKey);
+            IRestRequest request = new RestRequest(PRIVATE_API_URI + USER_API_RESOURCE + "/{userId}/", Method.GET);
+            request.AddUrlSegment("userId", userId.ToString());
+            var taskCompletionSource = new TaskCompletionSource<Model.Public.User>();
+
+            restClient.ExecuteAsync<Model.Public.User>(request, (response) =>
+                {
+                    if (response.ResponseStatus == ResponseStatus.Error)
+                    {
+                        taskCompletionSource.TrySetException(new ApiRequestException("Error de conexión realizando petición a la API en el método Find()"));
+                    }
+
+                    if (response.ResponseStatus == ResponseStatus.Completed &&
+                        response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        var item = response.Data;
+                        taskCompletionSource.TrySetResult(item);
                     }
                     else if (response.ResponseStatus == ResponseStatus.Completed &&
                             (response.StatusCode == System.Net.HttpStatusCode.NotFound ||
