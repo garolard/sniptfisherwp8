@@ -115,16 +115,19 @@ namespace Sniptfisher.ViewModel
         private readonly INavigationService NavigationService;
         private readonly IUserService UserService;
         private readonly IDialogService DialogService;
+        private readonly Services.SettingsService SettingsService;
         #endregion Servicios
 
         public SettingsViewModel(
             INavigationService navigationService,
             IUserService userService,
-            IDialogService dialogService)
+            IDialogService dialogService,
+            Services.SettingsService settingsService)
         {
             this.NavigationService = navigationService;
             this.UserService = userService;
             this.DialogService = dialogService;
+            this.SettingsService = settingsService;
 
             this.TryLoginCommand = new RelayCommand(this.TryLogin);
         }
@@ -139,11 +142,13 @@ namespace Sniptfisher.ViewModel
             {
                 this.IsLogged = false;
                 System.Diagnostics.Debug.WriteLine(are.Message);
-                this.DialogService.Show("Tenemos problemas para loguearte en Snipt.net, por favor inténtalo de nuevo más tarde."); // TODO: Traducir cadena
+                this.DialogService.Show("Tenemos problemas para loguearte en Snipt.net, por favor, revisa tus credenciales o inténtalo de nuevo más tarde."); // TODO: Traducir cadena
             }
+        }
 
-            if (this.IsLogged)
-                this.NavigationService.NavigateTo<Interfaces.IMainViewModel>();
+        public void Logout()
+        {
+            this.UserService.LogOut();
         }
 
         public object NavigationContext

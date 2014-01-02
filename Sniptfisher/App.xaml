@@ -11,13 +11,16 @@
     xmlns:vm="clr-namespace:Sniptfisher.ViewModel"
     xmlns:local="clr-namespace:Sniptfisher"
     xmlns:converter="clr-namespace:Sniptfisher.Converters"
-    xmlns:services="clr-namespace:Sniptfisher.Services">
+    xmlns:services="clr-namespace:Sniptfisher.Services"
+    xmlns:model="clr-namespace:Sniptfisher.Model.Public">
   <!--Application Resources-->
   <Application.Resources>
+        
+        <!-- Recursos globales -->
         <local:LocalizedStrings x:Key="LocalizedStrings" />
-        <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />
-      
+        <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" />      
         <services:SettingsService x:Key="Settings" />
+        <model:User x:Key="LoggedUser" />
       
         <!-- Conversores de tipos -->
         <converter:LocalizedResourcesConverter x:Key="LocalizedResourcesConverter" />

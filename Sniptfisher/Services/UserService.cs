@@ -42,14 +42,14 @@ namespace Sniptfisher.Services
             SettingsService.UsernameSetting = username;
             SettingsService.ApikeySetting = apiKey;
             basicUser = null;
-            completeUser = null; // Se podría crear un recurso global para mostrar info del usuario a lo largo de la app
+            // App.Current.Resources["LoggedUser"] = completeUser; -- No implementado para Windows Phone
             return true;
         }
 
         public void LogOut()
         {
-            SettingsService.UsernameSetting = String.Empty;
-            SettingsService.ApikeySetting = String.Empty;
+            SettingsService.Clear();
+            App.Current.Resources["LoggedUser"] = null;
         }
 
         public List<Model.Public.Snipt> GetAllSnipts(int userId)

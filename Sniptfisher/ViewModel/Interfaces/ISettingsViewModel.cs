@@ -9,5 +9,6 @@ namespace Sniptfisher.ViewModel.Interfaces
     public interface ISettingsViewModel
     {
         void TryLogin();
+        void Logout();
     }
 }
