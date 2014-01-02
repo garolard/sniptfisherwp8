@@ -58,6 +58,7 @@ namespace Sniptfisher.ViewModel
             SimpleIoc.Default.Register<IDialogService, DialogService>();
             SimpleIoc.Default.Register<SettingsService, SettingsService>(); //Modificar interfaz de SettingsService
             SimpleIoc.Default.Register<IUserService, UserService>();
+            SimpleIoc.Default.Register<IPersistentResourceService, PersistentResourceService>();
 
             /* ViewModels */
             SimpleIoc.Default.Register<MainViewModel>();

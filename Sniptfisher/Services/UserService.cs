@@ -11,13 +11,16 @@ namespace Sniptfisher.Services
     {
         private readonly IUserRepository UserRepository;
         private readonly Services.SettingsService SettingsService;
+        private readonly Services.Interfaces.IPersistentResourceService PersistentResourceService;
 
         public UserService(
             IUserRepository userRepository,
-            SettingsService settingsService)
+            SettingsService settingsService,
+            Services.Interfaces.IPersistentResourceService persistentResourceService)
         {
             this.UserRepository = userRepository;
             this.SettingsService = settingsService;
+            this.PersistentResourceService = persistentResourceService;
         }
 
         async public Task<bool> LogIn(string username, string apiKey)
@@ -43,7 +46,20 @@ namespace Sniptfisher.Services
             SettingsService.ApikeySetting = apiKey;
             basicUser = null;
             // App.Current.Resources["LoggedUser"] = completeUser; -- No implementado para Windows Phone
-            return true;
+
+            bool saved = false;
+
+            try
+            {
+                saved = await this.PersistentResourceService.Save<Model.Public.User>("loggedUser", completeUser);
+            }
+            catch (System.IO.IsolatedStorage.IsolatedStorageException ise)
+            {
+                System.Diagnostics.Debug.WriteLine(ise.Message + ": " + ise.StackTrace);
+                saved = false;
+                SettingsService.Clear();
+            }
+            return saved;
         }
 
         public void LogOut()

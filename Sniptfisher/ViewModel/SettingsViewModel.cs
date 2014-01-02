@@ -105,10 +105,43 @@ namespace Sniptfisher.ViewModel
                 RaisePropertyChanged(IsLoggedPropertyName);
             }
         }
+
+        /// <summary>
+        /// The <see cref="LoggedUser" /> property's name.
+        /// </summary>
+        public const string LoggedUserPropertyName = "LoggedUser";
+
+        private Model.Public.User _loggedUser = null;
+
+        /// <summary>
+        /// Sets and gets the LoggedUser property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public Model.Public.User LoggedUser
+        {
+            get
+            {
+                return _loggedUser;
+            }
+
+            set
+            {
+                if (_loggedUser == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(LoggedUserPropertyName);
+                _loggedUser = value;
+                RaisePropertyChanged(LoggedUserPropertyName);
+            }
+        }
         #endregion Propiedades enlazables
 
         #region Comandos
         public ICommand TryLoginCommand { get; private set; }
+        public ICommand LogoutCommand { get; private set; }
+        public ICommand TrySetLoggedUserCommand { get; private set; }
         #endregion Comandos
 
         #region Servicios
@@ -116,20 +149,25 @@ namespace Sniptfisher.ViewModel
         private readonly IUserService UserService;
         private readonly IDialogService DialogService;
         private readonly Services.SettingsService SettingsService;
+        private readonly IPersistentResourceService PersistentResourceService;
         #endregion Servicios
 
         public SettingsViewModel(
             INavigationService navigationService,
             IUserService userService,
             IDialogService dialogService,
-            Services.SettingsService settingsService)
+            Services.SettingsService settingsService,
+            IPersistentResourceService persistentResourceService)
         {
             this.NavigationService = navigationService;
             this.UserService = userService;
             this.DialogService = dialogService;
             this.SettingsService = settingsService;
+            this.PersistentResourceService = persistentResourceService;
 
             this.TryLoginCommand = new RelayCommand(this.TryLogin);
+            this.LogoutCommand = new RelayCommand(this.Logout);
+            this.TrySetLoggedUserCommand = new RelayCommand(this.TrySetLoggedUser);
         }
 
         async public void TryLogin()
@@ -149,6 +187,19 @@ namespace Sniptfisher.ViewModel
         public void Logout()
         {
             this.UserService.LogOut();
+        }
+
+        async public void TrySetLoggedUser()
+        {
+            try
+            {
+                this.LoggedUser = await this.PersistentResourceService.Load<Model.Public.User>("loggedUser");
+            }
+            catch (System.IO.IsolatedStorage.IsolatedStorageException ise)
+            {
+                System.Diagnostics.Debug.WriteLine(ise.Message + ": " + ise.StackTrace);
+                this.DialogService.Show("Error cargando datos del usuario."); // TODO: Traducir cadena
+            }
         }
 
         public object NavigationContext

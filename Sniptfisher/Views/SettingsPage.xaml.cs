@@ -23,20 +23,31 @@ namespace Sniptfisher.Views
         private void PivotItemsVisibilityHandler(object sender, RoutedEventArgs e)
         {
             this.dataContext = this.DataContext as ViewModel.SettingsViewModel;
+
+            // Elimino los PivotItem del árbol de widgets, no se
+            // pueden agregar a otro widget si antes ya son hijos de algún otro
             this.ContentPanel.Children.Remove(NotLoggedPivotItem);
             this.ContentPanel.Children.Remove(LoggedPivotItem);
 
             if (this.dataContext.IsLogged)
             {
+                // Escondo y elimino el PivotItem que pide usuario y
+                // contraseña ya que en este ámbito el usuario está logueado
                 NotLoggedPivotItem.Visibility = System.Windows.Visibility.Collapsed;
                 AccountPivot.Items.Remove(NotLoggedPivotItem);
 
+                // Inserto el PivotItem con el perfil del usuario logueado
+                // y lo vuelvo visible
                 AccountPivot.Items.Insert(AccountPivot.SelectedIndex, LoggedPivotItem);
                 LoggedPivotItem.Visibility = System.Windows.Visibility.Visible;
                 AccountPivot.SelectedItem = LoggedPivotItem;
+
+                this.dataContext.TrySetLoggedUserCommand.Execute(null);
             }
             else
             {
+                // En este bloque se hace exactamente lo contratio
+                // que en el anterior
                 LoggedPivotItem.Visibility = System.Windows.Visibility.Collapsed;
                 AccountPivot.Items.Remove(LoggedPivotItem);
 
@@ -45,6 +56,10 @@ namespace Sniptfisher.Views
                 AccountPivot.SelectedItem = NotLoggedPivotItem;
             }
 
+            // Asocio un evento que hace lo mismo que este método cuando
+            // el estado de login del usuario cambia.
+            // Esto contempla el escenario de login y logout en la pantalla
+            // de preferencias.
             this.dataContext.PropertyChanged += dataContext_PropertyChanged;
         }
 
@@ -61,6 +76,8 @@ namespace Sniptfisher.Views
                     AccountPivot.Items.Insert(0, LoggedPivotItem);
                     LoggedPivotItem.Visibility = System.Windows.Visibility.Visible;
                     AccountPivot.SelectedItem = LoggedPivotItem;
+
+                    this.dataContext.TrySetLoggedUserCommand.Execute(null);
                 }
                 else
                 {

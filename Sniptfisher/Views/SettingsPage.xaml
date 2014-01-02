@@ -46,8 +46,8 @@
                     x:Name="LoggedPivotItem"
                     Visibility="Collapsed"
                     CacheMode="{x:Null}"
-                    DataContext="{StaticResource LoggedUser}"
-                    Header="others">
+                    DataContext="{Binding LoggedUser}"
+                    Header="{Binding username}">
                 <Grid/>
             </phone:PivotItem>
         </Grid>
