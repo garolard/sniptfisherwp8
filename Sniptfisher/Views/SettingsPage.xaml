@@ -7,16 +7,19 @@
     xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
     Foreground="{StaticResource PhoneForegroundBrush}"
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
 	DataContext="{Binding Settings, Source={StaticResource Locator}}"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+    shell:SystemTray.BackgroundColor="{StaticResource AppBackgroundColor}"
+    toolkit:TiltEffect.IsTiltEnabled="True">
 
     <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource AppBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -26,31 +29,54 @@
 
         <!--ContentPanel. Colocar aquí el contenido adicional-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <phone:Pivot Title="SETTINGS" x:Name="AccountPivot">
+            <phone:Pivot Title="SETTINGS" x:Name="AccountPivot" Foreground="{StaticResource AppForegroundBrush}">
+				<phone:Pivot.HeaderTemplate>
+					<DataTemplate>
+						<Grid>
+							<TextBlock TextWrapping="Wrap" FontSize="66" FontFamily="{StaticResource PhoneFontFamilyBold}" HorizontalAlignment="Left" Foreground="{StaticResource AppAccentBrush}" Text="{Binding}" />
+						</Grid>
+					</DataTemplate>
+				</phone:Pivot.HeaderTemplate>
             </phone:Pivot>
 
             <phone:PivotItem 
                     x:Name="NotLoggedPivotItem"
-                    Visibility="Collapsed"
-                    CacheMode="{x:Null}" 
-                    Header="account">
+                    Foreground="{StaticResource AppForegroundBrush}"
+                    CacheMode="{x:Null}"
+					Header="account">
+				
                 <StackPanel>
-                    <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Text="Username"/>
-                    <TextBox x:Name="UsernameTextBox" Height="72" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay}"/>
-                    <TextBlock TextWrapping="Wrap" Text="Apikey" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,12,12,0"/>
-                    <TextBox x:Name="ApikeyTextBox" Height="72" TextWrapping="Wrap" Text="{Binding ApiKey, Mode=TwoWay}"/>
+                    <TextBlock TextWrapping="Wrap" Style="{StaticResource PhoneTextNormalStyle}" VerticalAlignment="Top" Text="Username" Foreground="{StaticResource AppForegroundBrush}"/>
+                    <TextBox x:Name="UsernameTextBox" Height="72" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay}" Style="{StaticResource CustomTextBoxStyle}"/>
+                    <TextBlock TextWrapping="Wrap" Text="Apikey" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,12,12,0" Foreground="{StaticResource AppForegroundBrush}"/>
+                    <TextBox x:Name="ApikeyTextBox" Height="72" TextWrapping="Wrap" Text="{Binding ApiKey, Mode=TwoWay}" Style="{StaticResource CustomTextBoxStyle}"/>
                     <Button x:Name="LoginButton" Content="Sign in" Command="{Binding TryLoginCommand}" />
                 </StackPanel>
             </phone:PivotItem>
             <phone:PivotItem
                     x:Name="LoggedPivotItem"
-                    Visibility="Collapsed"
+                    Foreground="{StaticResource AppForegroundBrush}"
                     CacheMode="{x:Null}"
                     DataContext="{Binding LoggedUser}"
                     Header="{Binding username}">
-                <Grid/>
+                <Grid Margin="0,6,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Border BorderThickness="1" Width="135" Height="132">
+                        <Border.Background>
+                            <ImageBrush ImageSource="{Binding gravatar}" Stretch="UniformToFill" />
+                        </Border.Background>
+                    </Border>
+                </Grid>
             </phone:PivotItem>
         </Grid>
+        <!--Image Source="/Assets/AlignmentGrid.png" VerticalAlignment="Top" Height="800" Width="480" Margin="0,-32,0,0" Grid.Row="0" Grid.RowSpan="2" IsHitTestVisible="False" /-->
     </Grid>
 
 </phone:PhoneApplicationPage>

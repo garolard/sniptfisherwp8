@@ -36,13 +36,13 @@ namespace Sniptfisher.Views
                 NotLoggedPivotItem.Visibility = System.Windows.Visibility.Collapsed;
                 AccountPivot.Items.Remove(NotLoggedPivotItem);
 
+                this.dataContext.TrySetLoggedUserCommand.Execute(null);
+
                 // Inserto el PivotItem con el perfil del usuario logueado
                 // y lo vuelvo visible
                 AccountPivot.Items.Insert(AccountPivot.SelectedIndex, LoggedPivotItem);
                 LoggedPivotItem.Visibility = System.Windows.Visibility.Visible;
                 AccountPivot.SelectedItem = LoggedPivotItem;
-
-                this.dataContext.TrySetLoggedUserCommand.Execute(null);
             }
             else
             {
@@ -73,11 +73,11 @@ namespace Sniptfisher.Views
                     NotLoggedPivotItem.Visibility = System.Windows.Visibility.Collapsed;
                     AccountPivot.Items.Remove(NotLoggedPivotItem);
 
+                    this.dataContext.TrySetLoggedUserCommand.Execute(null);
+
                     AccountPivot.Items.Insert(0, LoggedPivotItem);
                     LoggedPivotItem.Visibility = System.Windows.Visibility.Visible;
-                    AccountPivot.SelectedItem = LoggedPivotItem;
-
-                    this.dataContext.TrySetLoggedUserCommand.Execute(null);
+                    AccountPivot.SelectedItem = LoggedPivotItem;                    
                 }
                 else
                 {
