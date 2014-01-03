@@ -29,7 +29,7 @@
 
         <!--ContentPanel. Colocar aquí el contenido adicional-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
-            <phone:Pivot Title="SETTINGS" x:Name="AccountPivot" Foreground="{StaticResource AppForegroundBrush}">
+            <phone:Pivot Title="SETTINGS" x:Name="AccountPivot" Foreground="{StaticResource AppAccentBrush}">
 				<phone:Pivot.HeaderTemplate>
 					<DataTemplate>
 						<Grid>
@@ -50,7 +50,7 @@
                     <TextBox x:Name="UsernameTextBox" Height="72" TextWrapping="Wrap" Text="{Binding Username, Mode=TwoWay}" Style="{StaticResource CustomTextBoxStyle}"/>
                     <TextBlock TextWrapping="Wrap" Text="Apikey" Style="{StaticResource PhoneTextNormalStyle}" Margin="12,12,12,0" Foreground="{StaticResource AppForegroundBrush}"/>
                     <TextBox x:Name="ApikeyTextBox" Height="72" TextWrapping="Wrap" Text="{Binding ApiKey, Mode=TwoWay}" Style="{StaticResource CustomTextBoxStyle}"/>
-                    <Button x:Name="LoginButton" Content="Sign in" Command="{Binding TryLoginCommand}" />
+                    <Button x:Name="LoginButton" Content="Sign in" Command="{Binding TryLoginCommand}" Style="{StaticResource ButtonCustomStyle}" />
                 </StackPanel>
             </phone:PivotItem>
             <phone:PivotItem

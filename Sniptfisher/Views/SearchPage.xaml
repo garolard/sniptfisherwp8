@@ -8,6 +8,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
     xmlns:b="clr-namespace:Sniptfisher.Behaviors"
+	xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     FontFamily="{StaticResource PhoneFontFamilyNormal}"
     FontSize="{StaticResource PhoneFontSizeNormal}"
@@ -15,10 +16,13 @@
     SupportedOrientations="Portrait" Orientation="Portrait"
     mc:Ignorable="d"
     DataContext="{Binding Path=Search, Source={StaticResource Locator}}"
-    shell:SystemTray.IsVisible="True">
+    shell:SystemTray.IsVisible="True"
+	shell:SystemTray.BackgroundColor="{StaticResource AppBackgroundColor}"
+	shell:SystemTray.ForegroundColor="{StaticResource AppForegroundColor}"
+	toolkit:TiltEffect.IsTiltEnabled="True">
 
     <!--LayoutRoot es la cuadrícula raíz donde se coloca todo el contenido de la página-->
-    <Grid x:Name="LayoutRoot" Background="Transparent">
+    <Grid x:Name="LayoutRoot" Background="{StaticResource AppBackgroundBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
@@ -30,7 +34,7 @@
             <TextBox x:Name="SearchTextBox"
                      InputScope="Search"
                      KeyDown="SearchTextBox_KeyDown"
-                     GotFocus="SearchTextBox_GotFocus" Margin="0,0,12,0"/>
+                     GotFocus="SearchTextBox_GotFocus" Margin="0,0,12,0" Style="{StaticResource CustomTextBoxStyle}"/>
         </StackPanel>
 
         <!--ContentPanel. Colocar aquí el contenido adicional-->
@@ -44,12 +48,12 @@
                     Style="{StaticResource PhoneTextSubtleStyle}" 
                     FontSize="36" 
                     VerticalAlignment="Top" 
-                    HorizontalAlignment="Left" />
+                    HorizontalAlignment="Left" Foreground="#99000000" />
                 <TextBlock
                     Text="{Binding SearchTerm}"
                     FontSize="36"
                     VerticalAlignment="Top"
-                    HorizontalAlignment="Left" />
+                    HorizontalAlignment="Left" Foreground="{StaticResource AppForegroundBrush}" />
             </StackPanel>
             <phone:LongListSelector
                 ListFooter="{Binding}"
@@ -73,7 +77,7 @@
                                 </Border.Background>
                             </Border>
                             <StackPanel Grid.Column="1">
-                                <TextBlock Text="{Binding title}" Style="{StaticResource PhoneTextBlockBase}" />
+                                <TextBlock Text="{Binding title}" Style="{StaticResource PhoneTextBlockBase}" Foreground="{StaticResource AppForegroundBrush}" />
                                 <TextBlock Text="{Binding user.username}" Style="{StaticResource PhoneTextAccentStyle}" />
                             </StackPanel>
 

@@ -127,7 +127,7 @@
                 <phone:PanoramaItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PanoramaItem.RenderTransform>
-                <Grid/>
+            	<Grid/>
             </phone:PanoramaItem>
         </phone:Panorama>
 
