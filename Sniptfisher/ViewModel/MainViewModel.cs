@@ -31,7 +31,17 @@ namespace Sniptfisher.ViewModel
     {
         #region Miembros privados
         private object _navigationContext;
-        public object NavigationContext { private get; set; }
+        public object NavigationContext
+        {
+            private get { return _navigationContext; }
+            set
+            {
+                if (value is User && value != LoggedUser)
+                {
+                    LoggedUser = value as User;
+                }
+            }
+        }
         #endregion Miembros privados
 
         #region Propiedades enlazables
@@ -125,6 +135,37 @@ namespace Sniptfisher.ViewModel
                 RaisePropertyChanging(IsLoadingPropertyName);
                 _isLoading = value;
                 RaisePropertyChanged(IsLoadingPropertyName);
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="LoggedUser" /> property's name.
+        /// </summary>
+        public const string LoggedUserPropertyName = "LoggedUser";
+
+        private Model.Public.User _loggedUser = null;
+
+        /// <summary>
+        /// Sets and gets the LoggedUser property.
+        /// Changes to that property's value raise the PropertyChanged event. 
+        /// </summary>
+        public Model.Public.User LoggedUser
+        {
+            get
+            {
+                return _loggedUser;
+            }
+
+            set
+            {
+                if (_loggedUser == value)
+                {
+                    return;
+                }
+
+                RaisePropertyChanging(LoggedUserPropertyName);
+                _loggedUser = value;
+                RaisePropertyChanged(LoggedUserPropertyName);
             }
         }
         #endregion Propiedades enlazables

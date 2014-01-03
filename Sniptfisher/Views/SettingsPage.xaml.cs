@@ -20,6 +20,12 @@ namespace Sniptfisher.Views
             Loaded += new RoutedEventHandler(this.PivotItemsVisibilityHandler);
         }
 
+        protected override void OnBackKeyPress(System.ComponentModel.CancelEventArgs e)
+        {
+            base.OnBackKeyPress(e);
+            (this.DataContext as ViewModel.SettingsViewModel).NavigateBackCommand.Execute(null);
+        }
+
         private void PivotItemsVisibilityHandler(object sender, RoutedEventArgs e)
         {
             this.dataContext = this.DataContext as ViewModel.SettingsViewModel;

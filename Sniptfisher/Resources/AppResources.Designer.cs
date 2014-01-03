@@ -79,6 +79,15 @@ namespace Sniptfisher.Resources {
         }
         
         /// <summary>
+        ///   Busca una cadena traducida similar a my snippets.
+        /// </summary>
+        public static string MainPage_PrivatePanoramaItem {
+            get {
+                return ResourceManager.GetString("MainPage_PrivatePanoramaItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Busca una cadena traducida similar a public.
         /// </summary>
         public static string MainPage_PublicPanoramaItem {

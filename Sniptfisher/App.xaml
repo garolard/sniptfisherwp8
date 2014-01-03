@@ -157,7 +157,7 @@
         			</ControlTemplate>
         		</Setter.Value>
         	</Setter>
-        	<Setter Property="SelectionBackground" Value="{StaticResource PhoneAccentBrush}"/>
+        	<Setter Property="SelectionBackground" Value="{StaticResource AppAccentBrush}"/>
         </Style>
         <Style x:Key="ButtonCustomStyle" TargetType="Button">
         	<Setter Property="BorderBrush" Value="{StaticResource AppForegroundBrush}"/>

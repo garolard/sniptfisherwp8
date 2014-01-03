@@ -37,6 +37,7 @@
     <NoConfig>true</NoConfig>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <DocumentationFile>Bin\Debug\Sniptfisher.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -100,6 +101,7 @@
     <Compile Include="Converters\LocalizedResourcesConverter.cs" />
     <Compile Include="Design\DesignDataService.cs" />
     <Compile Include="Exceptions\ApiRequestException.cs" />
+    <Compile Include="Model\Public\CommonBindableBase.cs" />
     <Compile Include="Repository\Interfaces\IUserRepository.cs" />
     <Compile Include="Repository\UserRepository.cs" />
     <Compile Include="Services\Interfaces\IPersistentResourceService.cs" />

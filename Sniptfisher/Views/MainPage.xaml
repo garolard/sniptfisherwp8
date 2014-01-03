@@ -123,11 +123,48 @@
                     </phone:LongListSelector>
                 </Grid>
             </phone:PanoramaItem>
-            <phone:PanoramaItem CacheMode="{x:Null}" Header="item2" Foreground="{StaticResource AppAccentBrush}" Style="{StaticResource PanoramaItemCustomStyle}">
+            <phone:PanoramaItem CacheMode="{x:Null}" Header="{Binding LocalizedResources.MainPage_PrivatePanoramaItem, Source={StaticResource LocalizedStrings}}" Foreground="{StaticResource AppAccentBrush}" Style="{StaticResource PanoramaItemCustomStyle}">
                 <phone:PanoramaItem.RenderTransform>
                     <TranslateTransform/>
                 </phone:PanoramaItem.RenderTransform>
-            	<Grid/>
+                <Grid>
+                    <phone:LongListSelector
+                        ListFooter="{Binding}"
+                        ItemsSource="{Binding PrivateItems}"
+                        Margin="0,-38,0,36" Foreground="{StaticResource AppForegroundBrush}">
+                        <!-- Plantilla para elementos de lista -->
+                        <phone:LongListSelector.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0,6">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border 
+                                        Grid.Column="0" 
+                                        CornerRadius="30" 
+                                        Margin="12,6,6,6"
+                                        Width="60" Height="60">
+                                        <Border.Background>
+                                            <ImageBrush ImageSource="{Binding user.gravatar}" />
+                                        </Border.Background>
+                                    </Border>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="{Binding title}" Style="{StaticResource PhoneTextBlockBase}" Foreground="{StaticResource AppForegroundBrush}" />
+                                        <TextBlock Text="{Binding user.username}" Style="{StaticResource PhoneTextAccentStyle}" Foreground="{StaticResource AppAccentBrush}" />
+                                    </StackPanel>
+
+                                    <i:Interaction.Triggers>
+                                        <i:EventTrigger EventName="Tap">
+                                            <i:InvokeCommandAction Command="{Binding DataContext.ViewItemDetailCommand, ElementName=MainPageName}"
+												    CommandParameter="{Binding}" />
+                                        </i:EventTrigger>
+                                    </i:Interaction.Triggers>
+                                </Grid>
+                            </DataTemplate>
+                        </phone:LongListSelector.ItemTemplate>
+                    </phone:LongListSelector>
+                </Grid>
             </phone:PanoramaItem>
         </phone:Panorama>
 

@@ -31,19 +31,137 @@ namespace Sniptfisher.Model.Public
         public List<Tag> tags { get; set; }
     }
 
-    public class User
+    public class User : CommonBindableBase
     {
-        public int id { get; set; }
-        public string email { get; set; }
-        public string username { get; set; }
-        public string snipts { get; set; }
-        public string email_md5 { get; set; }
+        private int _id;
+        public int id 
+        { 
+            get
+            {
+                return _id;
+            }
+            set
+            {
+                if (value != _id)
+                {
+                    RaisePropertyChanging("id");
+                    _id = value;
+                    RaisePropertyChanged("id");
+                }
+            }
+        }
+
+        private string _email;
+        public string email 
+        {
+            get
+            {
+                return _email;
+            }
+            set
+            {
+                if (value != _email)
+                {
+                    RaisePropertyChanging("email");
+                    _email = value;
+                    RaisePropertyChanged("email");
+                }
+            }
+        }
+
+        private string _username;
+        public string username
+        {
+            get
+            {
+                return _username;
+            }
+            set
+            {
+                if (value != _username)
+                {
+                    RaisePropertyChanging("username");
+                    _username = value;
+                    RaisePropertyChanged("username");
+                }
+            }
+        }
+
+        private string _snipts;
+        public string snipts
+        {
+            get
+            {
+                return _snipts;
+            }
+            set
+            {
+                if (value != _snipts)
+                {
+                    RaisePropertyChanging("snipts");
+                    _snipts = value;
+                    RaisePropertyChanged("snipts");
+                }
+            }
+        }
+
+        private string _email_md5;
+        public string email_md5
+        {
+            get
+            {
+                return _email_md5;
+            }
+            set
+            {
+                if (value != _email_md5)
+                {
+                    RaisePropertyChanging("email_md5");
+                    _email_md5 = value;
+                    RaisePropertyChanged("email_md5");
+                }
+            }
+        }
         public string gravatar
         {
             get { return "http://www.gravatar.com/avatar/" + email_md5; }
         }
-        public bool is_pro { get; set; }
-        public List<string> lexers { get; set; }
+
+        private bool _is_pro;
+        public bool is_pro
+        {
+            get
+            {
+                return _is_pro;
+            }
+            set
+            {
+                if (value != _is_pro)
+                {
+                    RaisePropertyChanging("is_pro");
+                    _is_pro = value;
+                    RaisePropertyChanged("is_pro");
+                }
+            }
+        }
+
+        private List<string> _lexers;
+        public List<string> lexers
+        {
+            get
+            {
+                return _lexers;
+            }
+            set
+            {
+                if (value != _lexers)
+                {
+                    RaisePropertyChanging("lexers");
+                    _lexers = value;
+                    RaisePropertyChanged("lexers");
+                }
+            }
+        }
     }
 
     public class Tag

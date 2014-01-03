@@ -149,4 +149,7 @@
   <data name="SearchPage_SystemTrayText" xml:space="preserve">
     <value>Searching...</value>
   </data>
+  <data name="MainPage_PrivatePanoramaItem" xml:space="preserve">
+    <value>my snippets</value>
+  </data>
 </root>

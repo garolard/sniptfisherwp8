@@ -142,6 +142,7 @@ namespace Sniptfisher.ViewModel
         public ICommand TryLoginCommand { get; private set; }
         public ICommand LogoutCommand { get; private set; }
         public ICommand TrySetLoggedUserCommand { get; private set; }
+        public ICommand NavigateBackCommand { get; private set; }
         #endregion Comandos
 
         #region Servicios
@@ -168,6 +169,7 @@ namespace Sniptfisher.ViewModel
             this.TryLoginCommand = new RelayCommand(this.TryLogin);
             this.LogoutCommand = new RelayCommand(this.Logout);
             this.TrySetLoggedUserCommand = new RelayCommand(this.TrySetLoggedUser);
+            this.NavigateBackCommand = new RelayCommand(this.NavigateBack);
         }
 
         async public void TryLogin()
@@ -187,6 +189,7 @@ namespace Sniptfisher.ViewModel
         public void Logout()
         {
             this.UserService.LogOut();
+            this.LoggedUser = null;
         }
 
         async public void TrySetLoggedUser()
@@ -200,6 +203,11 @@ namespace Sniptfisher.ViewModel
                 System.Diagnostics.Debug.WriteLine(ise.Message + ": " + ise.StackTrace);
                 this.DialogService.Show("Error cargando datos del usuario."); // TODO: Traducir cadena
             }
+        }
+
+        public void NavigateBack()
+        {
+            this.NavigationService.NavigateBack(this.LoggedUser);
         }
 
         public object NavigationContext
